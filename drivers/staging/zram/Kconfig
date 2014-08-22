@@ -26,3 +26,8 @@ config ZRAM_DEBUG
 	help
 	  This option adds additional debugging code to the compressed
 	  RAM block device driver.
+
+config ZRAM_LZ4
+	bool "LZ4 compression"
+	depends on LZ4_COMPRESS
+	depends on LZ4_DECOMPRESS
