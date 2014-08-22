@@ -8,6 +8,10 @@ if [ -e boot.img ]; then
 	rm boot.img
 fi
 
+if [ -e boot.dt.img ]; then
+	rm bboot.dt.img
+fi
+
 if [ -e compile.log ]; then
 	rm compile.log
 fi
@@ -48,3 +52,4 @@ rm -rf $DIR/arch/arm/boot/Image > /dev/null 2>&1
 rm $DIR/boot.img > /dev/null 2>&1
 rm $DIR/zImage > /dev/null 2>&1
 rm $DIR/boot.dt.img > /dev/null 2>&1
+rm $DIR/dt.img > /dev/null 2>&1

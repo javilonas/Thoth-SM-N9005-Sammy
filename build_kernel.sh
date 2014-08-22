@@ -80,7 +80,7 @@ rm $KERNELDIR/boot.img > /dev/null 2>&1
 rm $KERNELDIR/*.ko > /dev/null 2>&1
 #compile kernel
 cd $KERNELDIR
-nice -n 10 make -j7  >> compile.log 2>&1 || exit -1
+nice -n 10 make -j7 >> compile.log 2>&1 || exit -1
 
 echo "#################### Generar nueva dt image ####################"
 $TOOLBASE/dtbTool -o $KERNELDIR/dt.img -s 2048 -p $KERNELDIR/scripts/dtc/ $KERNELDIR/arch/arm/boot/
@@ -112,6 +112,7 @@ rm $KERNELDIR/releasetools/tar/boot.img > /dev/null 2>&1
 rm $KERNELDIR/boot.img > /dev/null 2>&1
 rm $KERNELDIR/zImage > /dev/null 2>&1
 rm $KERNELDIR/boot.dt.img > /dev/null 2>&1
+rm $KERNELDIR/dt.img > /dev/null 2>&1
 rm -rf /home/lonas/Kernel_Lonas/tmp/ramfs-source-sgn3 > /dev/null 2>&1
 rm /home/lonas/Kernel_Lonas/tmp/ramfs-source-sgn3.cpio.gz > /dev/null 2>&1
 echo "#################### Terminado ####################"
