@@ -42,7 +42,7 @@
 #define DECOMPRESS(s, sl, d, dl)	\
 	lzo1x_decompress_safe(s, sl, d, dl)
 #elif defined(CONFIG_ZRAM_LZ4)
-#include "../lz4/lz4.h"
+#include <linux/lz4.h>
 #define WMSIZE		LZ4_MEM_COMPRESS
 static int lz4_decompress_(
 				const unsigned char *src,
