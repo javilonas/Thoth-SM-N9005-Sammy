@@ -4,7 +4,7 @@
 BUILD_TOP_DIR=..
 BUILD_KERNEL_DIR=$(pwd)
 
-BUILD_CROSS_COMPILE=../prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin/arm-eabi-
+BUILD_CROSS_COMPILE=/home/lonas/crom/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin/arm-eabi-
 BUILD_JOB_NUMBER=`grep processor /proc/cpuinfo|wc -l`
 
 # Default Python version is 2.7
