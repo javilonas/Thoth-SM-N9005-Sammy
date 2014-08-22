@@ -41,7 +41,7 @@ fi
 
 TOOLCHAIN="/home/lonas/crom/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin/arm-eabi-"
 TOOLCHAIN_PATCH="/home/lonas/crom/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin"
-ROOTFS_PATH="/home/lonas/Kernel_Lonas/Thoth-SM-N9005-Sammy"
+ROOTFS_PATH="/home/lonas/Kernel_Lonas/Thoth-SM-N9005-Sammy/ramdisk"
 RAMFS_TMP="/home/lonas/Kernel_Lonas/tmp/ramfs-source-sgn3"
 
 export KERNEL_VERSION="Thoth-1.0"
