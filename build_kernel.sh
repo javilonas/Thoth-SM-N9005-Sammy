@@ -41,7 +41,7 @@ chmod 644 $ROOTFS_PATH/lib/modules/*
 chmod 755 $ROOTFS_PATH/proc
 chmod 750 $ROOTFS_PATH/sbin
 chmod 750 $ROOTFS_PATH/sbin/*
-#chmod 755 $ROOTFS_PATH/res/ext/99SuperSUDaemon
+chmod 755 $ROOTFS_PATH/res/ext/99SuperSUDaemon
 chmod 755 $ROOTFS_PATH/sys
 chmod 755 $ROOTFS_PATH/system
 

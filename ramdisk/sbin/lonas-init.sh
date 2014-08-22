@@ -64,9 +64,6 @@ fi
 # Iniciar Tweaks Lonas_KL
 /res/ext/tweaks.sh
 
-# Iniciar zswap
-#/res/ext/zswap.sh
-
 # Iniciar Sensor
 /res/ext/sensors.sh
 
@@ -84,15 +81,9 @@ done
 # kill radio logcat to sdcard
 /sbin/busybox pkill -f "logcat -b radio -v time";
 
-# Iniciar efs_backup
-/res/ext/efs_backup.sh
-
 /sbin/busybox sleep 2
 
 /sbin/busybox sync
-
-# Iniciar MTP/adb
-/res/ext/usb_mtp.sh
 
 # Iniciar Liberar Memoria
 /res/ext/libera_ram.sh &

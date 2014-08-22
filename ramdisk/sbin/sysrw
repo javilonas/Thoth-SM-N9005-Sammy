@@ -3,7 +3,7 @@
 # Script sysrw by javilonas
 #
 
-SYSTEM_DEVICE="/dev/block/mmcblk0p9"
+SYSTEM_DEVICE="/dev/block/mmcblk0p23"
 
 /sbin/busybox mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
 /sbin/busybox mount -t rootfs -o remount,rw rootfs
