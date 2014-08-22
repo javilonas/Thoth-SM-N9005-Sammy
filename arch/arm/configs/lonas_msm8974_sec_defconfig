@@ -1483,6 +1483,7 @@ CONFIG_EEPROM_93CX6=y
 #
 # CONFIG_ALTERA_STAPL is not set
 # CONFIG_SEC_MODEM is not set
+CONFIG_TOUCH_WAKE=y
 
 #
 # SCSI device support
