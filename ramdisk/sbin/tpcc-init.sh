@@ -56,6 +56,24 @@ fi
 
 /sbin/busybox sync
 
+# soporte TPowerCC
+/sbin/busybox rm /data/.tpowercc/tpowercc.xml
+/sbin/busybox rm /data/.tpowercc/action.cache
+
+/sbin/busybox mkdir /data/.tpowercc
+/sbin/busybox chmod 777 /data/.tpowercc
+
+. /res/tpowercc/tpowercc-helper
+
+read_defaults
+read_config
+
+/res/init_uci.sh select default
+/res/init_uci.sh apply
+
+apply_config
+
+/sbin/busybox sync
 
 /sbin/busybox mount -t rootfs -o remount,ro rootfs
 /sbin/busybox mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system

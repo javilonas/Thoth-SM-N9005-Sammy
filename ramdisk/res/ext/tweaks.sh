@@ -55,8 +55,8 @@ done
 LOOP=`ls -d /sys/block/loop*`
 RAM=`ls -d /sys/block/ram*`
 MMC=`ls -d /sys/block/mmc*`
-ZRM=`ls -d /sys/block/zram*`
-for j in $LOOP $RAM $MMC $ZRM
+ZSWA=`ls -d /sys/block/vnswap*`
+for j in $LOOP $RAM $MMC $ZSWA
 do 
 echo "0" > $j/queue/rotational
 echo "2048" > $j/queue/read_ahead_kb; 
