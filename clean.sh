@@ -47,3 +47,4 @@ rm -f $DIR/arch/arm/boot/*.cmd > /dev/null 2>&1
 rm -rf $DIR/arch/arm/boot/Image > /dev/null 2>&1
 rm $DIR/boot.img > /dev/null 2>&1
 rm $DIR/zImage > /dev/null 2>&1
+rm $DIR/boot.dt.img > /dev/null 2>&1
