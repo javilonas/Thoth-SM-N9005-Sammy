@@ -145,11 +145,13 @@ void set_power_suspend_state(int new_state)
 #ifdef POWER_SUSPEND_DEBUG
 		pr_warn("power_suspend: activated.\n");
 #endif
+		state = new_state;
 		queue_work(suspend_work_queue, &power_suspend_work);
 	} else if (old_sleep == POWER_SUSPEND_INACTIVE || new_state == POWER_SUSPEND_INACTIVE) {
 #ifdef POWER_SUSPEND_DEBUG
 		pr_warn("power_suspend: deactivated.\n");
 #endif
+		state = new_state;
 		queue_work(suspend_work_queue, &power_resume_work);
 	}
 	spin_unlock_irqrestore(&state_lock, irqflags);
