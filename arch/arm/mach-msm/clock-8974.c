@@ -4900,7 +4900,7 @@ static unsigned long measure_clk_get_rate(struct clk *c)
 
 	clk_disable_unprepare(&cxo_clk_src.c);
 
-	return count;
+	return ret;
 }
 #else /* !CONFIG_DEBUG_FS */
 static int measure_clk_set_parent(struct clk *clk, struct clk *parent)
