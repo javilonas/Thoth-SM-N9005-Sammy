@@ -111,6 +111,7 @@ rm $KERNELDIR/releasetools/zip/boot.img > /dev/null 2>&1
 rm $KERNELDIR/releasetools/tar/boot.img > /dev/null 2>&1
 rm $KERNELDIR/boot.img > /dev/null 2>&1
 rm $KERNELDIR/zImage > /dev/null 2>&1
+rm $KERNELDIR/zImage-dtb > /dev/null 2>&1
 rm $KERNELDIR/boot.dt.img > /dev/null 2>&1
 rm $KERNELDIR/dt.img > /dev/null 2>&1
 rm -rf /home/lonas/Kernel_Lonas/tmp/ramfs-source-sgn3 > /dev/null 2>&1

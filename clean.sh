@@ -46,10 +46,12 @@ find -name '*.ko' -exec rm -rf {} \;
 rm -f $DIR/releasetools/tar/*.tar > /dev/null 2>&1
 rm -f $DIR/releasetools/zip/*.zip > /dev/null 2>&1
 rm -rf $DIR/arch/arm/boot/zImage > /dev/null 2>&1
+rm -rf $DIR/arch/arm/boot/zImage-dtb > /dev/null 2>&1
 rm -f $DIR/arch/arm/boot/*.dtb > /dev/null 2>&1
 rm -f $DIR/arch/arm/boot/*.cmd > /dev/null 2>&1
 rm -rf $DIR/arch/arm/boot/Image > /dev/null 2>&1
 rm $DIR/boot.img > /dev/null 2>&1
 rm $DIR/zImage > /dev/null 2>&1
+rm $DIR/zImage-dtb > /dev/null 2>&1
 rm $DIR/boot.dt.img > /dev/null 2>&1
 rm $DIR/dt.img > /dev/null 2>&1
