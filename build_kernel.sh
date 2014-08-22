@@ -1,7 +1,7 @@
 #!/bin/sh
 # Build Script: Javilonas, 22-08-2014
 # Javilonas <admin@lonasdigital.com>
-
+start_time=`date +'%d/%m/%y %H:%M:%S'`
 echo "#################### Eliminando Restos ####################"
 if [ -e boot.img ]; then
         rm boot.img
@@ -21,7 +21,7 @@ fi
 
 #make distclean
 make clean && make mrproper
-rm Module.symvers
+rm Module.symvers > /dev/null 2>&1
 
 echo "#################### Preparando Entorno ####################"
 export KERNELDIR=`readlink -f .`
@@ -106,22 +106,22 @@ find . -name '*.ko' -exec cp -av {} $ROOTFS_PATH/lib/modules/ \;
 $TOOLCHAIN_PATCH/arm-eabi-strip --strip-unneeded $ROOTFS_PATH/lib/modules/*.ko
 
 echo "#################### Update Ramdisk ####################"
-rm -f $KERNELDIR/releasetools/tar/$KERNEL_VERSION-$REVISION$KBUILD_BUILD_VERSION-$VERSION_KL.tar
-rm -f $KERNELDIR/releasetools/zip/$KERNEL_VERSION-$REVISION$KBUILD_BUILD_VERSION-$VERSION_KL.zip
+rm -f $KERNELDIR/releasetools/tar/$KERNEL_VERSION-$REVISION$KBUILD_BUILD_VERSION-$VERSION_KL.tar > /dev/null 2>&1
+rm -f $KERNELDIR/releasetools/zip/$KERNEL_VERSION-$REVISION$KBUILD_BUILD_VERSION-$VERSION_KL.zip > /dev/null 2>&1
 cp -f $KERNELDIR/arch/arm/boot/zImage .
 
-rm -rf $RAMFS_TMP
-rm -rf $RAMFS_TMP.cpio
-rm -rf $RAMFS_TMP.cpio.gz
-rm -rf $KERNELDIR/*.cpio
-rm -rf $KERNELDIR/*.cpio.gz
+rm -rf $RAMFS_TMP > /dev/null 2>&1
+rm -rf $RAMFS_TMP.cpio > /dev/null 2>&1
+rm -rf $RAMFS_TMP.cpio.gz > /dev/null 2>&1
+rm -rf $KERNELDIR/*.cpio > /dev/null 2>&1
+rm -rf $KERNELDIR/*.cpio.gz > /dev/null 2>&1
 cd $ROOTFS_PATH
 cp -ax $ROOTFS_PATH $RAMFS_TMP
 find $RAMFS_TMP -name .git -exec rm -rf {} \;
 find $RAMFS_TMP -name EMPTY_DIRECTORY -exec rm -rf {} \;
 find $RAMFS_TMP -name .EMPTY_DIRECTORY -exec rm -rf {} \;
-rm -rf $RAMFS_TMP/tmp/*
-rm -rf $RAMFS_TMP/.hg
+rm -rf $RAMFS_TMP/tmp/* > /dev/null 2>&1
+rm -rf $RAMFS_TMP/.hg > /dev/null 2>&1
 
 echo "#################### Build Ramdisk ####################"
 cd $RAMFS_TMP
@@ -130,9 +130,9 @@ ls -lh $RAMFS_TMP.cpio
 gzip -9 -f $RAMFS_TMP.cpio
 
 #remove previous out files
-rm $KERNELDIR/dt.img
-rm $KERNELDIR/boot.img
-rm $KERNELDIR/*.ko
+rm $KERNELDIR/dt.img > /dev/null 2>&1
+rm $KERNELDIR/boot.img > /dev/null 2>&1
+rm $KERNELDIR/*.ko > /dev/null 2>&1
 
 echo "#################### Compilar Kernel ####################"
 cd $KERNELDIR
@@ -159,10 +159,10 @@ tar cf $KERNEL_VERSION-$REVISION$KBUILD_BUILD_VERSION-$VERSION_KL.tar boot.img &
 
 echo "#################### Eliminando restos ####################"
 
-rm $KERNELDIR/releasetools/zip/boot.img
-rm $KERNELDIR/releasetools/tar/boot.img
-rm $KERNELDIR/boot.img
-rm $KERNELDIR/zImage
-rm -rf /home/lonas/Kernel_Lonas/tmp/ramfs-source-sgn3
-rm /home/lonas/Kernel_Lonas/tmp/ramfs-source-sgn3.cpio.gz
+rm $KERNELDIR/releasetools/zip/boot.img > /dev/null 2>&1
+rm $KERNELDIR/releasetools/tar/boot.img > /dev/null 2>&1
+rm $KERNELDIR/boot.img > /dev/null 2>&1
+rm $KERNELDIR/zImage > /dev/null 2>&1
+rm -rf /home/lonas/Kernel_Lonas/tmp/ramfs-source-sgn3 > /dev/null 2>&1
+rm /home/lonas/Kernel_Lonas/tmp/ramfs-source-sgn3.cpio.gz > /dev/null 2>&1
 echo "#################### Terminado ####################"

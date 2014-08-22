@@ -22,7 +22,7 @@ fi
 
 #make distclean
 make clean && make mrproper
-rm Module.symvers
+rm Module.symvers > /dev/null 2>&1
 
 # clean ccache
 read -t 6 -p "Eliminar ccache, (y/n)?"
@@ -39,11 +39,11 @@ make ARCH=arm CROSS_COMPILE=$TOOLCHAIN -j`grep 'processor' /proc/cpuinfo | wc -l
 make ARCH=arm CROSS_COMPILE=$TOOLCHAIN -j`grep 'processor' /proc/cpuinfo | wc -l` clean
 
 find -name '*.ko' -exec rm -rf {} \;
-rm -f $DIR/releasetools/tar/*.tar
-rm -f $DIR/releasetools/zip/*.zip
-rm -rf $DIR/arch/arm/boot/zImage
-rm -f $DIR/arch/arm/boot/*.dtb
-rm -f $DIR/arch/arm/boot/*.cmd
-rm -rf $DIR/arch/arm/boot/Image
-rm $DIR/boot.img
-rm $DIR/zImage
+rm -f $DIR/releasetools/tar/*.tar > /dev/null 2>&1
+rm -f $DIR/releasetools/zip/*.zip > /dev/null 2>&1
+rm -rf $DIR/arch/arm/boot/zImage > /dev/null 2>&1
+rm -f $DIR/arch/arm/boot/*.dtb > /dev/null 2>&1
+rm -f $DIR/arch/arm/boot/*.cmd > /dev/null 2>&1
+rm -rf $DIR/arch/arm/boot/Image > /dev/null 2>&1
+rm $DIR/boot.img > /dev/null 2>&1
+rm $DIR/zImage > /dev/null 2>&1
