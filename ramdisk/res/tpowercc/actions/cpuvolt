@@ -1,27 +1,32 @@
 #!/sbin/busybox sh
 
-STEP=CPU_VOLT_`echo $2`
-
-if [ -z $3 ]; then
-	evalcmd='eval echo \$$STEP'
-	if [ "a`eval $evalcmd`" == "a" ]; then
-		while read FREQ UVOLT; do
-			eval "CPU_VOLT_$FREQ=$UVOLT"
-			echo "CPU_VOLT_$FREQ=$UVOLT" >> $DEFAULT_PROFILE
-		done < /sys/devices/system/cpu/cpu0/cpufreq/TP_mV_table
-	fi
+if [ "a$2" != "a" ];then
+filename=$(basename $2)
+filename=CPU_VOLT_`echo $filename`
+if [ "a$3" == "a" ];then
+  evalcmd='eval "echo \$$filename"'
+  if [ "a`eval $evalcmd`" == "a" ];then
+    for i in `cat /sys/devices/system/cpu/cpu0/cpufreq/TP_mV_table | \
+              sed -e 's/mhz//g;s/://g' | \
+              awk '{ print "CPU_VOLT_" $1 "=" $2 }'` ; do 
+      eval $i;
+    done
+  fi
+  eval $evalcmd
 else
-	eval $STEP=$3
-
-	if [ "$CONTROLSWITCH_CPU" == "on" -o "$CONFIG_BOOTED" == true ]; then
-		VOLTAGES=""
-		while read FREQ UVOLT; do
-			evalcmd='eval echo \$CPU_VOLT_$FREQ'
-			VOLTAGES="$VOLTAGES `eval $evalcmd`"
-		done < /sys/devices/system/cpu/cpu0/cpufreq/TP_mV_table
-
-		echo $VOLTAGES > /sys/devices/system/cpu/cpu0/cpufreq/TP_mV_table
-	fi
+  evalcmd='eval "$filename=$3"'
+  eval $evalcmd
+  if [ "$CONTROLSWITCH_CPU" == "on" -o "$CONFIG_BOOTING" != "1" ]; then
+    VOLTAGES=""
+    for i in `cat /sys/devices/system/cpu/cpu0/cpufreq/TP_mV_table | \
+              sed -e 's/mhz//g;s/://g' | \
+              awk '{ print $1 }'` ; do 
+      evalcmd='eval echo \$CPU_VOLT_$i'
+      VOLTAGES="$VOLTAGES `eval $evalcmd`"
+    done
+    echo $VOLTAGES > /sys/devices/system/cpu/cpu0/cpufreq/TP_mV_table
+  fi
+  evalcmd='eval "echo \$$filename"'
+  eval $evalcmd
 fi
-
-eval echo \$$STEP
+fi

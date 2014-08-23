@@ -668,13 +668,12 @@ cpufreq_freq_attr_rw(scaling_min_freq);
 #endif
 #endif
 
-#ifdef CONFIG_CPU_VOLTAGE_TABLE
-cpufreq_freq_attr_rw(TP_mV_table);
-#endif
-
 cpufreq_freq_attr_rw(scaling_max_freq);
 cpufreq_freq_attr_rw(scaling_governor);
 cpufreq_freq_attr_rw(scaling_setspeed);
+#ifdef CONFIG_CPU_VOLTAGE_TABLE
+cpufreq_freq_attr_rw(TP_mV_table);
+#endif
 
 static struct attribute *default_attrs[] = {
 	&cpuinfo_min_freq.attr,

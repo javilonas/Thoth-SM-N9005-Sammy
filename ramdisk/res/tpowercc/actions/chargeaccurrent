@@ -35,7 +35,7 @@ write_values(){
 
 case "$chargeaccurrentpredef" in
   0)
-    charge_level_ac="11000"
+    charge_level_ac="1000"
     chargeaccurrent_predef="0"
     write_values
     ;;

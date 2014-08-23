@@ -38,41 +38,73 @@ echo '
 
 echo "
       <spinner description=\"Establece la frecuencia máxima de la CPU. Por defecto: `cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq | rev | cut -c 4- | rev` MHz.\" 
-               name=\"CPU max frecuencia\" 
-               action=\"cpugeneric /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\">" >> $XML
-
-while read FREQ UVOLT; do
-  echo "
-        <spinnerItem name=\"$FREQ MHz\" value=\"${FREQ}000\"/>" >> $XML
-done < /sys/devices/system/cpu/cpu0/cpufreq/TP_mV_table
-
-
-echo "
-      </spinner>
+               name=\"CPU max frequency\" 
+               action=\"genericfreq /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\">
+             <spinnerItem name=\"2803MHz\" value=\"2803200\"/>
+             <spinnerItem name=\"2726MHz\" value=\"2726400\"/>
+             <spinnerItem name=\"2649MHz\" value=\"2649600\"/>
+             <spinnerItem name=\"2572MHz\" value=\"2572800\"/>
+             <spinnerItem name=\"2496MHz\" value=\"2496000\"/>
+             <spinnerItem name=\"2419MHz\" value=\"2419200\"/>
+             <spinnerItem name=\"2342MHz\" value=\"2342400\"/>
+             <spinnerItem name=\"2265MHz\" value=\"2265600\"/>
+             <spinnerItem name=\"1958MHz\" value=\"1958400\"/>
+             <spinnerItem name=\"1728MHz\" value=\"1728000\"/>
+             <spinnerItem name=\"1574MHz\" value=\"1574400\"/>
+             <spinnerItem name=\"1497MHz\" value=\"1497600\"/>
+             <spinnerItem name=\"1267MHz\" value=\"1267200\"/>
+             <spinnerItem name=\"1190MHz\" value=\"1190400\"/>
+             <spinnerItem name=\"1036MHz\" value=\"1036800\"/>
+             <spinnerItem name=\"960MHz\" value=\"960000\"/>
+             <spinnerItem name=\"883MHz\" value=\"883200\"/>
+             <spinnerItem name=\"729MHz\" value=\"729600\"/>
+             <spinnerItem name=\"652MHz\" value=\"652800\"/>
+             <spinnerItem name=\"422MHz\" value=\"422400\"/>
+             <spinnerItem name=\"300MHz\" value=\"300000\"/>
+       </spinner>
       <spinner description=\"Establece la frecuencia mínima de la CPU. Por defecto: `cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq | rev | cut -c 4- | rev` MHz.\" 
-               name=\"CPU min frecuencia\" 
-               action=\"cpugeneric /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\">" >> $XML
-
-while read FREQ UVOLT; do
-  echo "
-        <spinnerItem name=\"$FREQ MHz\" value=\"${FREQ}000\"/>" >> $XML
-done < /sys/devices/system/cpu/cpu0/cpufreq/TP_mV_table
+               name=\"CPU min frequency\" 
+               action=\"genericfreq /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\">
+             <spinnerItem name=\"300MHz\" value=\"300000\"/>
+             <spinnerItem name=\"422MHz\" value=\"422400\"/>
+             <spinnerItem name=\"652MHz\" value=\"652800\"/>
+             <spinnerItem name=\"729MHz\" value=\"729600\"/> 
+             <spinnerItem name=\"883MHz\" value=\"883200\"/> 
+             <spinnerItem name=\"960MHz\" value=\"960000\"/>
+             <spinnerItem name=\"1036MHz\" value=\"1036800\"/>
+             <spinnerItem name=\"1190MHz\" value=\"1190400\"/>
+             <spinnerItem name=\"1267MHz\" value=\"1267200\"/>
+             <spinnerItem name=\"1497MHz\" value=\"1497600\"/>
+             <spinnerItem name=\"1574MHz\" value=\"1574400\"/>
+             <spinnerItem name=\"1728MHz\" value=\"1728000\"/>
+             <spinnerItem name=\"1958MHz\" value=\"1958400\"/>
+             <spinnerItem name=\"2265MHz\" value=\"2265600\"/>
+             <spinnerItem name=\"2342MHz\" value=\"2342400\"/>
+             <spinnerItem name=\"2419MHz\" value=\"2419200\"/>
+             <spinnerItem name=\"2496MHz\" value=\"2496000\"/>
+             <spinnerItem name=\"2572MHz\" value=\"2572800\"/>
+             <spinnerItem name=\"2649MHz\" value=\"2649600\"/>
+             <spinnerItem name=\"2726MHz\" value=\"2726400\"/>
+             <spinnerItem name=\"2803MHz\" value=\"2803200\"/>
+       </spinner>" >> $XML
 
 echo '
-      </spinner>
     </settingsPane>
 
     <settingsPane description="La disminución de tensión reducirá el consumo de energía de la CPU. El aumento en las frecuencias de overclocking mejora la estabilidad. Demasiado bajo voltaje puede causar inestabilidad y puede quedarse congelado (Colgado)." 
                   name="CPU voltage control">' >> $XML
-
+`
+cat /sys/devices/system/cpu/cpu0/cpufreq/TP_mV_table | \
+sed -e 's/mhz//g;s/://g' | awk '{ print $1, $2 }' | \
 while read FREQ UVOLT; do
   echo "
-      <seekBar  description=\"Voltage por defecto: $UVOLTµV\" 
+      <seekBar  description=\"Voltage por defecto: $UVOLTmV\" 
 	        name=\"${FREQ} MHz step\" 
                 action=\"cpuvolt ${FREQ}\"
-                unit=\"µV\" min=\"600000\" reversed=\"false\" step=\"12500\" max=\"1500000\"/>" >> $XML
+                unit=\"mV\" min=\"600\" reversed=\"false\" step=\"25\" max=\"1450\"/>" >> $XML
   CPUFREQLIST="$CPUFREQLIST $FREQ"
-done < /sys/devices/system/cpu/cpu0/cpufreq/TP_mV_table
+done
+`
 
 echo '
     </settingsPane>
@@ -111,8 +143,8 @@ echo '
     </settingsPane>' >> $XML
 
 echo "
-    <settingsPane description=\"Selecciona el Perfil de carga que desea, por defecto está a 1200mA, un perfil mas alto cargará mas rápido la batería, no es recomendable pasar de 1200mA\" name=\"Carga AC\">
-      <spinner description=\"Por Defecto: AC:1900mA\" name=\"Perfil de Carga AC\" action=\"chargeaccurrent chargeaccurrentpredef\">
+    <settingsPane description=\"Selecciona el Perfil de carga que desea, por defecto está a 1800mA, un perfil mas alto cargará mas rápido la batería, no es recomendable pasar de 1800mA\" name=\"Carga AC\">
+      <spinner description=\"Por Defecto: AC:1800mA\" name=\"Perfil de Carga AC\" action=\"chargeaccurrent chargeaccurrentpredef\">
              <spinnerItem name=\"AC:1000mA\" value=\"0\"/> 
              <spinnerItem name=\"AC:1100mA\" value=\"1\"/> 
              <spinnerItem name=\"AC:1200mA\" value=\"2\"/>

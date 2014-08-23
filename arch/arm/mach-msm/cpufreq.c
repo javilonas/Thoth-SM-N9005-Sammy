@@ -33,6 +33,7 @@
 #include <trace/events/power.h>
 #include <mach/socinfo.h>
 #include <mach/msm_bus.h>
+#include <linux/sysfs_helpers.h>
 
 #include "acpuclock.h"
 
