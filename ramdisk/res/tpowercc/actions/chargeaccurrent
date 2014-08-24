@@ -78,14 +78,17 @@ case "$chargeaccurrentpredef" in
     charge_level_ac="1800"
     chargeaccurrent_predef="8"
     write_values
+    ;;
   9)
     charge_level_ac="1900"
     chargeaccurrent_predef="9"
     write_values
+    ;;
   10)
     charge_level_ac="2000"
     chargeaccurrent_predef="10"
     write_values
+    ;;
   11)
     charge_level_ac="2100"
     chargeaccurrent_predef="11"
