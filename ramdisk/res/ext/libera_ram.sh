@@ -19,16 +19,8 @@ do
 		echo $DROP_THREE > /proc/sys/vm/drop_caches
 		/sbin/busybox sync; echo $DROP_THREE > /proc/sys/vm/drop_caches
                 /sbin/busybox sync
-		#/sbin/busybox swapoff /dev/block/vnswap0 > /dev/null 2>&1
-		/sbin/busybox swapoff /dev/block/zram0 > /dev/null 2>&1
-		/sbin/busybox swapoff /dev/block/zram1 > /dev/null 2>&1
-		/sbin/busybox swapoff /dev/block/zram2 > /dev/null 2>&1
-		/sbin/busybox swapoff /dev/block/zram3 > /dev/null 2>&1
-		#/sbin/busybox swapon -p 2 /dev/block/vnswap0 > /dev/null 2>&1
-		/sbin/busybox swapon -p 2 /dev/block/zram0 > /dev/null 2>&1
-		/sbin/busybox swapon -p 2 /dev/block/zram1 > /dev/null 2>&1
-		/sbin/busybox swapon -p 2 /dev/block/zram2 > /dev/null 2>&1
-		/sbin/busybox swapon -p 2 /dev/block/zram3 > /dev/null 2>&1
+		/sbin/busybox swapoff /dev/block/vnswap0 > /dev/null 2>&1
+		/sbin/busybox swapon -p 2 /dev/block/vnswap0 > /dev/null 2>&1
                 /sbin/busybox sync
         fi
 sleep 3600
