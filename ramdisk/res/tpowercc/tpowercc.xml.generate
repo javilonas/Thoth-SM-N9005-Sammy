@@ -311,6 +311,39 @@ echo '
     </settingsPane>
 
   </settingsTab>
+
+  <settingsTab name="Sonido">
+
+    <settingsPane name="Sound Control"
+	      description="Desde Sound Control podrá aumentar y mejorar considerablemente el sonido de su teléfono. ">		  
+      
+      <seekBar  description="Aumentar el Volumen de los Auriculares. Por defecto: 45" 
+                name="Volumen Auriculares." 
+                action="generic /sys/kernel/sound_control_3/gpl_headphone_gain"
+                unit="" min="20" reversed="false" step="1" max="60"/>
+
+      <seekBar  description="Amplificar el Volumen de los Auriculares. Por defecto: 20" 
+                name="Amplificar Auriculares." 
+                action="generic /sys/kernel/sound_control_3/gpl_headphone_pa_gain"
+                unit="" min="10" reversed="false" step="1" max="30"/>
+
+      <seekBar  description="Aumentar el Volumen del Altavoz. Por defecto: 45" 
+                name="Volumen Altavoz." 
+                action="generic /sys/kernel/sound_control_3/gpl_speaker_gain"
+                unit="" min="20" reversed="false" step="1" max="60"/>
+
+      <seekBar  description="Aumentar la Ganancia del Micrófono. Por defecto: 40" 
+                name="Aumentar Micrófono" 
+                action="generic /sys/kernel/sound_control_3/gpl_mic_gain"
+                unit="" min="20" reversed="false" step="1" max="60"/>
+
+      <seekBar  description="Aumentar la Ganancia del Micrófono de la Cámara. Por defecto: 40" 
+                name="Aumentar Micrófono Cámara" 
+                action="generic /sys/kernel/sound_control_3/gpl_cam_mic_gain"
+                unit="" min="20" reversed="false" step="1" max="60"/>
+
+    </settingsPane>
+  </settingsTab>
 </settingsRoot>' >> $XML
 
 chmod 777 $XML
