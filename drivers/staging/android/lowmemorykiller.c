@@ -175,8 +175,6 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 {
 	struct task_struct *tsk;
 	struct task_struct *selected = NULL;
-	const struct cred *cred = current_cred(), *pcred; 
-	unsigned int uid = 0;
 	int rem = 0;
 	int tasksize;
 	int i;
@@ -282,25 +280,11 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 			    tasksize <= selected_tasksize)
 				continue;
 		}
-		pcred = __task_cred(p);
-		uid = pcred->uid;
-
-		if (avoid_to_kill(uid) || protected_apps(p->comm)) {
-			if (tasksize * (long)(PAGE_SIZE / 1024) >= 80000) {
-				selected = p;
-				selected_tasksize = tasksize;
-				selected_oom_score_adj = oom_score_adj;
-			lowmem_print(2, "select '%s' (%d), adj %hd, size %ldkB, to kill\n",
-					p->comm, p->pid, oom_score_adj, tasksize * (long)(PAGE_SIZE / 1024));
-			} else
-				lowmem_print(2, "selected skipped %s' (%d), adj %hd, size %ldkB, not kill\n",
-					p->comm, p->pid, oom_score_adj, tasksize * (long)(PAGE_SIZE / 1024));
-		} else {
 		selected = p;
 		selected_tasksize = tasksize;
 		selected_oom_score_adj = oom_score_adj;
-			lowmem_print(2, "select %s' (%d), adj %hd, size %ldkB, to kill\n",
-				p->comm, p->pid, oom_score_adj, tasksize * (long)(PAGE_SIZE / 1024));
+		lowmem_print(2, "select %d (%s), adj %d, size %d, to kill\n",
+			     p->pid, p->comm, oom_score_adj, tasksize);
 	}
 	if (selected) {
 		lowmem_print(1, "send sigkill to %d (%s), adj %d, size %d\n",
@@ -355,6 +339,8 @@ static int android_oom_handler(struct notifier_block *nb,
 #else
 	struct task_struct *selected = NULL;
 #endif
+	const struct cred *cred = current_cred(), *pcred; 
+	unsigned int uid = 0;
 	int rem = 0;
 	int tasksize;
 	int i;
@@ -470,11 +456,25 @@ static int android_oom_handler(struct notifier_block *nb,
 			    tasksize <= selected_tasksize)
 				continue;
 		}
+		pcred = __task_cred(p);
+		uid = pcred->uid;
+
+		if (avoid_to_kill(uid) || protected_apps(p->comm)) {
+			if (tasksize * (long)(PAGE_SIZE / 1024) >= 80000) {
+				selected = p;
+				selected_tasksize = tasksize;
+				selected_oom_score_adj = oom_score_adj;
+			lowmem_print(2, "select '%s' (%d), adj %hd, size %ldkB, to kill\n",
+					p->comm, p->pid, oom_score_adj, tasksize * (long)(PAGE_SIZE / 1024));
+			} else
+				lowmem_print(2, "selected skipped %s' (%d), adj %hd, size %ldkB, not kill\n",
+					p->comm, p->pid, oom_score_adj, tasksize * (long)(PAGE_SIZE / 1024));
+		} else {
 		selected = p;
 		selected_tasksize = tasksize;
 		selected_oom_score_adj = oom_score_adj;
-		lowmem_print(2, "oom: select %d (%s), adj %d, size %d, to kill\n",
-			     p->pid, p->comm, oom_score_adj, tasksize);
+			lowmem_print(2, "select %s' (%d), adj %hd, size %ldkB, to kill\n",
+				p->comm, p->pid, oom_score_adj, tasksize * (long)(PAGE_SIZE / 1024));
 #endif
 	}
 #ifdef MULTIPLE_OOM_KILLER
