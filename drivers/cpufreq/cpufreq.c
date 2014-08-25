@@ -420,7 +420,7 @@ static ssize_t show_cpuinfo_min_freq(struct cpufreq_policy *policy, char *buf)
 	if (!strcmp(current->comm, "thermal-engine")) {
 		newfreq = min(policy->min, (unsigned int)300000);
 		pr_info("thermal-engine read minfreq %d!\n", newfreq);
-	} else newfreq = policy->cpuinfo.min_freq;
+	} else newfreq = policy->min;
 	return sprintf(buf, "%u\n", newfreq);
 }
 
@@ -430,7 +430,7 @@ static ssize_t show_cpuinfo_max_freq(struct cpufreq_policy *policy, char *buf)
 	if (!strcmp(current->comm, "thermal-engine")) {
 		newfreq = max(policy->max, (unsigned int)2265600);
 		pr_info("thermal-engine read maxfreq %d!\n", newfreq);
-	} else newfreq = policy->cpuinfo.max_freq;
+	} else newfreq = policy->max;
 	return sprintf(buf, "%u\n", newfreq);
 }
 
@@ -473,11 +473,7 @@ static ssize_t store_##file_name					\
 	return ret ? ret : count;					\
 }
 
-#ifdef CONFIG_SEC_PM
-
-/* Disable scaling_min_freq store */
-	store_one(scaling_min_freq, min);
-#endif
+store_one(scaling_min_freq, min);
 
 static ssize_t store_scaling_max_freq
         (struct cpufreq_policy *policy, const char *buf, size_t count)

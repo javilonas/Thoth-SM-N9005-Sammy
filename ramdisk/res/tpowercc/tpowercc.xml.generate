@@ -39,53 +39,53 @@ echo '
 echo "
       <spinner description=\"Establece la frecuencia máxima de la CPU. Por defecto: 2265 MHz.\" 
                name=\"CPU max frequency\" 
-               action=\"genericfreq /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\">
-             <spinnerItem name=\"2803MHz\" value=\"2803200\"/>
-             <spinnerItem name=\"2726MHz\" value=\"2726400\"/>
-             <spinnerItem name=\"2649MHz\" value=\"2649600\"/>
-             <spinnerItem name=\"2572MHz\" value=\"2572800\"/>
-             <spinnerItem name=\"2496MHz\" value=\"2496000\"/>
-             <spinnerItem name=\"2419MHz\" value=\"2419200\"/>
-             <spinnerItem name=\"2342MHz\" value=\"2342400\"/>
-             <spinnerItem name=\"2265MHz\" value=\"2265600\"/>
-             <spinnerItem name=\"1958MHz\" value=\"1958400\"/>
-             <spinnerItem name=\"1728MHz\" value=\"1728000\"/>
-             <spinnerItem name=\"1574MHz\" value=\"1574400\"/>
-             <spinnerItem name=\"1497MHz\" value=\"1497600\"/>
-             <spinnerItem name=\"1267MHz\" value=\"1267200\"/>
-             <spinnerItem name=\"1190MHz\" value=\"1190400\"/>
-             <spinnerItem name=\"1036MHz\" value=\"1036800\"/>
-             <spinnerItem name=\"960MHz\" value=\"960000\"/>
-             <spinnerItem name=\"883MHz\" value=\"883200\"/>
-             <spinnerItem name=\"729MHz\" value=\"729600\"/>
-             <spinnerItem name=\"652MHz\" value=\"652800\"/>
-             <spinnerItem name=\"422MHz\" value=\"422400\"/>
-             <spinnerItem name=\"300MHz\" value=\"300000\"/>
+               action=\"cpuclockmax cpuclockmaxpredef\">
+             <spinnerItem name=\"2803MHz\" value=\"0\"/>
+             <spinnerItem name=\"2726MHz\" value=\"1\"/>
+             <spinnerItem name=\"2649MHz\" value=\"2\"/>
+             <spinnerItem name=\"2572MHz\" value=\"3\"/>
+             <spinnerItem name=\"2496MHz\" value=\"4\"/>
+             <spinnerItem name=\"2419MHz\" value=\"5\"/>
+             <spinnerItem name=\"2342MHz\" value=\"6\"/>
+             <spinnerItem name=\"2265MHz\" value=\"7\"/>
+             <spinnerItem name=\"1958MHz\" value=\"8\"/>
+             <spinnerItem name=\"1728MHz\" value=\"9\"/>
+             <spinnerItem name=\"1574MHz\" value=\"10\"/>
+             <spinnerItem name=\"1497MHz\" value=\"11\"/>
+             <spinnerItem name=\"1267MHz\" value=\"12\"/>
+             <spinnerItem name=\"1190MHz\" value=\"13\"/>
+             <spinnerItem name=\"1036MHz\" value=\"14\"/>
+             <spinnerItem name=\"960MHz\" value=\"15\"/>
+             <spinnerItem name=\"883MHz\" value=\"16\"/>
+             <spinnerItem name=\"729MHz\" value=\"17\"/>
+             <spinnerItem name=\"652MHz\" value=\"18\"/>
+             <spinnerItem name=\"422MHz\" value=\"19\"/>
+             <spinnerItem name=\"300MHz\" value=\"20\"/>
        </spinner>
       <spinner description=\"Establece la frecuencia mínima de la CPU. Por defecto: 300 MHz.\" 
                name=\"CPU min frequency\" 
-               action=\"genericfreq /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\">
-             <spinnerItem name=\"300MHz\" value=\"300000\"/>
-             <spinnerItem name=\"422MHz\" value=\"422400\"/>
-             <spinnerItem name=\"652MHz\" value=\"652800\"/>
-             <spinnerItem name=\"729MHz\" value=\"729600\"/> 
-             <spinnerItem name=\"883MHz\" value=\"883200\"/> 
-             <spinnerItem name=\"960MHz\" value=\"960000\"/>
-             <spinnerItem name=\"1036MHz\" value=\"1036800\"/>
-             <spinnerItem name=\"1190MHz\" value=\"1190400\"/>
-             <spinnerItem name=\"1267MHz\" value=\"1267200\"/>
-             <spinnerItem name=\"1497MHz\" value=\"1497600\"/>
-             <spinnerItem name=\"1574MHz\" value=\"1574400\"/>
-             <spinnerItem name=\"1728MHz\" value=\"1728000\"/>
-             <spinnerItem name=\"1958MHz\" value=\"1958400\"/>
-             <spinnerItem name=\"2265MHz\" value=\"2265600\"/>
-             <spinnerItem name=\"2342MHz\" value=\"2342400\"/>
-             <spinnerItem name=\"2419MHz\" value=\"2419200\"/>
-             <spinnerItem name=\"2496MHz\" value=\"2496000\"/>
-             <spinnerItem name=\"2572MHz\" value=\"2572800\"/>
-             <spinnerItem name=\"2649MHz\" value=\"2649600\"/>
-             <spinnerItem name=\"2726MHz\" value=\"2726400\"/>
-             <spinnerItem name=\"2803MHz\" value=\"2803200\"/>
+               action=\"cpuclockmin cpuclockminpredef\">
+             <spinnerItem name=\"300MHz\" value=\"20\"/>
+             <spinnerItem name=\"422MHz\" value=\"19\"/>
+             <spinnerItem name=\"652MHz\" value=\"18\"/>
+             <spinnerItem name=\"729MHz\" value=\"17\"/>
+             <spinnerItem name=\"883MHz\" value=\"16\"/>
+             <spinnerItem name=\"960MHz\" value=\"15\"/>
+             <spinnerItem name=\"1036MHz\" value=\"14\"/>
+             <spinnerItem name=\"1190MHz\" value=\"13\"/>
+             <spinnerItem name=\"1267MHz\" value=\"12\"/>
+             <spinnerItem name=\"1497MHz\" value=\"11\"/>
+             <spinnerItem name=\"1574MHz\" value=\"10\"/>
+             <spinnerItem name=\"1728MHz\" value=\"9\"/>
+             <spinnerItem name=\"1958MHz\" value=\"8\"/>
+             <spinnerItem name=\"2265MHz\" value=\"7\"/>
+             <spinnerItem name=\"2342MHz\" value=\"6\"/>
+             <spinnerItem name=\"2419MHz\" value=\"5\"/>
+             <spinnerItem name=\"2496MHz\" value=\"4\"/>
+             <spinnerItem name=\"2572MHz\" value=\"3\"/>
+             <spinnerItem name=\"2649MHz\" value=\"2\"/>
+             <spinnerItem name=\"2726MHz\" value=\"1\"/>
+             <spinnerItem name=\"2803MHz\" value=\"0\"/>
        </spinner>" >> $XML
 
 echo '

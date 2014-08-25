@@ -1,6 +1,12 @@
 swappiness=90
 scaling_max_freq=2265600
+cpuinfo_max_freq=2265600
+cpufreq_max_limit=2265600
+cpuclockmax_predef=7
 scaling_min_freq=300000
+cpuinfo_min_freq=300000
+cpuinfo_min_freq=300000
+cpuclockmin_predef=20
 hijack=off
 sharpen=on
 scaling_governor=interactiveX
