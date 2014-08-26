@@ -437,6 +437,9 @@ config ZSWAP
 	depends on FRONTSWAP && CRYPTO
 	select CRYPTO_LZ4
 	select ZSMALLOC_NEW
+	select ZBUD
+	select VNSWAP
+	select ANDROID_LOW_MEMORY_KILLER
 	default n
 	help
 	  Zswap is a backend for the frontswap mechanism in the VMM.
