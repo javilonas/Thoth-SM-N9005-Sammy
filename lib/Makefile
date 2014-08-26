@@ -131,6 +131,10 @@ obj-$(CONFIG_SIGNATURE) += digsig.o
 
 obj-$(CONFIG_CLZ_TAB) += clz_tab.o
 
+CFLAGS_snappy.o += $(call cc-disable-warning, declaration-after-statement) \
+		   -DNDEBUG=1
+obj-$(CONFIG_SNAPPY) += snappy.o
+
 obj-$(CONFIG_QMI_ENCDEC) += qmi_encdec.o
 
 obj-$(CONFIG_GENERIC_STRNCPY_FROM_USER) += strncpy_from_user.o
