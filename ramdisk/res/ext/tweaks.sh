@@ -44,6 +44,8 @@ echo "6144 87380 524388" > /proc/sys/net/ipv4/tcp_rmem
 echo "6144" > /proc/sys/net/ipv4/udp_rmem_min
 echo "6144" > /proc/sys/net/ipv4/udp_wmem_min
 
+echo "50" > /sys/module/zswap/parameters/max_pool_percent
+
 # reduce txqueuelen to 0 to switch from a packet queue to a byte one
 NET=`ls -d /sys/class/net/*`
 for i in $NET 

@@ -39,10 +39,15 @@
 #include <linux/notifier.h>
 #include <linux/mutex.h>
 #include <linux/delay.h>
-#include <linux/swap.h>
-#include <linux/fs.h>
+//#include <linux/swap.h>
+//#include <linux/fs.h>
 
 #include <linux/ratelimit.h>
+
+#ifdef CONFIG_ZSWAP
+#include <linux/fs.h>
+#include <linux/swap.h>
+#endif
 
 #define LMK_COUNT_READ
 
