@@ -356,7 +356,7 @@ KERNELFLAGS = -O2 -mtune=cortex-a15 -mfpu=neon -fgcse-las -fpredictive-commoning
 MODFLAGS = -DMODULE $(KERNELFLAGS)
 CFLAGS_MODULE = $(MODFLAGS) -fno-pic -mcpu=cortex-a15 -mtune=cortex-a15 -mfpu=neon-vfpv4
 AFLAGS_MODULE = $(MODFLAGS)
-LDFLAGS_MODULE = -T $(srctree)/scripts/module-common.lds
+LDFLAGS_MODULE = --strip-debug -T $(srctree)/scripts/module-common.lds
 CFLAGS_KERNEL = $(KERNELFLAGS)
 ifeq ($(ENABLE_GRAPHITE),true)
 CFLAGS_KERNEL += -mcpu=cortex-a15 -mtune=cortex-a15 -mfpu=neon-vfpv4 -fgraphite -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block
