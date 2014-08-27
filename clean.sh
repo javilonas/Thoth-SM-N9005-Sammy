@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TOOLCHAIN="/home/lonas/crom/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin/arm-eabi-"
+TOOLCHAIN="/home/lonas/Kernel_Lonas/toolchains/arm-cortex_a15-linux-gnueabihf-linaro_4.9.1-2014.07/bin/arm-cortex_a15-linux-gnueabihf-"
 DIR="/home/lonas/Kernel_Lonas/Thoth-SM-N9005-Sammy"
 
 echo "#################### Eliminando Restos ####################"

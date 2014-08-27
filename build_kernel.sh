@@ -18,7 +18,7 @@ ROOTFS_PATH="/home/lonas/Kernel_Lonas/Thoth-SM-N9005-Sammy/ramdisk"
 RAMFS_TMP="/home/lonas/Kernel_Lonas/tmp/ramfs-source-sgn3"
 
 export KERNEL_VERSION="Thoth-1.0"
-export VERSION_KL="SAMMY-4.4.2"
+export VERSION_KL="SM-N9005-SAMMY-4.4.2"
 export REVISION="RTM"
 
 export KBUILD_BUILD_VERSION="1"
