@@ -144,11 +144,7 @@ echo '
 
 echo "
     <settingsPane description=\"Selecciona el Perfil de carga que desea, por defecto está a 1800mA, un perfil mas alto cargará mas rápido la batería, no es recomendable pasar de 1800mA\" name=\"Carga AC\">
-      <spinner description=\"Fast Charge ON,OFF\" name=\"Force Fast Charge Switch\" action=\"generic /sys/kernel/fast_charge/force_fast_charge\">
-             <spinnerItem name=\"Fast Charge OFF\" value=\"0\"/>
-             <spinnerItem name=\"Fast Charge ON\" value=\"1\"/>
-             <spinnerItem name=\"Fast Charge Manual\" value=\"2\"/>
-      </spinner>
+
       <spinner description=\"Por Defecto: AC:1800mA\" name=\"Perfil de Carga AC\" action=\"chargeaccurrent chargeaccurrentpredef\">
              <spinnerItem name=\"AC:1000mA\" value=\"0\"/>
              <spinnerItem name=\"AC:1100mA\" value=\"1\"/>
@@ -174,7 +170,13 @@ echo "
              <spinnerItem name=\"USB:900mA\" value=\"5\"/>
              <spinnerItem name=\"USB:1000mA\" value=\"6\"/>
       </spinner>
-
+    </settingsPane>
+    <settingsPane description=\"Fast Charge\" name=\"Carga AC\">
+      <spinner description=\"Fast Charge ON,OFF\" name=\"Force Fast Charge Switch\" action=\"generic /sys/kernel/fast_charge/force_fast_charge\">
+             <spinnerItem name=\"Fast Charge OFF\" value=\"0\"/>
+             <spinnerItem name=\"Fast Charge ON\" value=\"1\"/>
+             <spinnerItem name=\"Fast Charge Manual\" value=\"2\"/>
+      </spinner>
     </settingsPane>
 " >> $XML
 echo '

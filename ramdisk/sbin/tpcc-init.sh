@@ -28,7 +28,7 @@ if [ ! -f /system/lib/modules ]; then
 /sbin/busybox ln -s /lib/modules/ /system/lib
 fi
 
-# Iniciar zswap
+# Iniciar zswap.sh
 /res/ext/zswap.sh
 
 /sbin/busybox sync
