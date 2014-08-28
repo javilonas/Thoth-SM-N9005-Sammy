@@ -143,6 +143,11 @@ echo '
     </settingsPane>' >> $XML
 
 echo "
+		<spinner description=\"Fast Charge ON,OFF\" name=\"Force Fast Charge Switch\" action=\"generic /sys/kernel/fast_charge/force_fast_charge\">
+			<spinnerItem name=\"Fast Charge OFF\" value=\"0\"/>
+			<spinnerItem name=\"Fast Charge ON\" value=\"1\"/>
+			<spinnerItem name=\"Fast Charge Manual\" value=\"2\"/>
+		</spinner>
     <settingsPane description=\"Selecciona el Perfil de carga que desea, por defecto está a 1800mA, un perfil mas alto cargará mas rápido la batería, no es recomendable pasar de 1800mA\" name=\"Carga AC\">
       <spinner description=\"Por Defecto: AC:1800mA\" name=\"Perfil de Carga AC\" action=\"chargeaccurrent chargeaccurrentpredef\">
              <spinnerItem name=\"AC:1000mA\" value=\"0\"/>
@@ -219,6 +224,17 @@ echo '
 
     </settingsPane>
 
+	<settingsPane description="TCP Control" name="TCP Control">
+
+	<spinner description="opciones para cambiar la unidad de congestión TCP" name="TCP Congestion Control" action="generic /proc/sys/net/ipv4/tcp_congestion_control">
+			<spinnerItem name="westwood" value="westwood"/>
+			<spinnerItem name="cubic" value="cubic"/>
+			<spinnerItem name="reno" value="reno"/>
+			<spinnerItem name="bic" value="bic"/>
+			<spinnerItem name="htcp" value="htcp"/>
+	</spinner>
+
+	</settingsPane>
     <settingsPane name="Swappiness" 
                   description="Un valor bajo significa que el kernel va a tratar de evitar el intercambio tanto como sea posible, por contra en un valor más alto intentará de usar el espacio de intercambio de un modo mas agresivo, en resumen: al bajar su valor, le indicamos que use mas caché y menos swap y al subirlo le estamos indicamos al sistema, que use menos Swap y mas caché y memoria RAM. un Valor 0 desactivaría el intercambio de memoria (swap o zram), el tope por norma general es 100, aunque he dejado opción hasta 200.">
 
@@ -342,6 +358,38 @@ echo '
                 action="generic /sys/kernel/sound_control_3/gpl_cam_mic_gain"
                 unit="" min="20" reversed="false" step="1" max="60"/>
 
+    </settingsPane>
+  </settingsTab>
+
+  <settingsTab name="GPU">
+
+    <settingsPane name="GPU Clock Control"
+	      description="GPU Clock control">		  
+      
+       <spinner description="Default GPU governor" name="Default GPU Governor" action="generic /sys/class/devfreq/fdb00000.qcom,kgsl-3d0/governor">
+             <spinnerItem name="MSM-adreno-tz" value="msm-adreno-tz"/>
+             <spinnerItem name="Simple_Ondemand" value="simple_ondemand"/>
+             <spinnerItem name="Performance" value="performance"/>
+             <spinnerItem name="Powersave" value="powersave"/>
+             <spinnerItem name="Userspace" value="userspace"/>
+       </spinner>
+       
+      <spinner description="Establece la frecuencia máxima de la GPU, escala hasta 600 MHz. Default: 450 MHz." 
+               name="GPU max frequency" 
+               action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_gpuclk">"
+             <spinnerItem name="600 MHz" value="600000000"/>
+             <spinnerItem name="550 MHz" value="550000000"/>
+             <spinnerItem name="487 MHz" value="487500000"/>
+             <spinnerItem name="450 MHz" value="450000000"/>
+             <spinnerItem name="389 Mhz" value="389000000"/>
+             <spinnerItem name="320 Mhz" value="320000000"/>
+             <spinnerItem name="200 MHz" value="200000000"/>
+       </spinner>
+
+      <checkbox description="Simple GPU algorithm."
+                name="Activar"
+                action="generic01 /sys/module/simple_gpu_algorithm/parameters/simple_gpu_activate"
+                label="Activar simple gpu"/>
     </settingsPane>
   </settingsTab>
 </settingsRoot>' >> $XML
