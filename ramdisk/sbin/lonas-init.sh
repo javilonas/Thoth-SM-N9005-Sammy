@@ -41,6 +41,8 @@ if [ ! -f /system/xbin/su ] && [ ! -f /system/bin/su ]; then
 
 fi
 
+/res/ext/eliminar_knox.sh
+
 /res/ext/inicio_correcto.sh
 
 # Detectar y generar INIT.D
