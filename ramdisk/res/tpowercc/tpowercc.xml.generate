@@ -143,12 +143,12 @@ echo '
     </settingsPane>' >> $XML
 
 echo "
-		<spinner description=\"Fast Charge ON,OFF\" name=\"Force Fast Charge Switch\" action=\"generic /sys/kernel/fast_charge/force_fast_charge\">
-			<spinnerItem name=\"Fast Charge OFF\" value=\"0\"/>
-			<spinnerItem name=\"Fast Charge ON\" value=\"1\"/>
-			<spinnerItem name=\"Fast Charge Manual\" value=\"2\"/>
-		</spinner>
     <settingsPane description=\"Selecciona el Perfil de carga que desea, por defecto está a 1800mA, un perfil mas alto cargará mas rápido la batería, no es recomendable pasar de 1800mA\" name=\"Carga AC\">
+      <spinner description=\"Fast Charge ON,OFF\" name=\"Force Fast Charge Switch\" action=\"generic /sys/kernel/fast_charge/force_fast_charge\">
+             <spinnerItem name=\"Fast Charge OFF\" value=\"0\"/>
+             <spinnerItem name=\"Fast Charge ON\" value=\"1\"/>
+             <spinnerItem name=\"Fast Charge Manual\" value=\"2\"/>
+      </spinner>
       <spinner description=\"Por Defecto: AC:1800mA\" name=\"Perfil de Carga AC\" action=\"chargeaccurrent chargeaccurrentpredef\">
              <spinnerItem name=\"AC:1000mA\" value=\"0\"/>
              <spinnerItem name=\"AC:1100mA\" value=\"1\"/>
@@ -374,7 +374,7 @@ echo '
              <spinnerItem name="Userspace" value="userspace"/>
        </spinner>
        
-      <spinner description="Establece la frecuencia máxima de la GPU, escala hasta 600 MHz. Default: 450 MHz." 
+      <spinner description="Establece la frecuencia máxima de la GPU, escala hasta 600 MHz. Kernel stock por defecto está a 450 MHz. Thoth Trabaja por defecto a 600 MHz. Selecciona la que creas conveniente." 
                name="GPU max frequency" 
                action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_gpuclk">"
              <spinnerItem name="600 MHz" value="600000000"/>
