@@ -238,6 +238,16 @@ echo '
 
 	</settingsPane>
 
+    <settingsPane name="ZRAM" 
+                  description=" ">
+
+      <seekBar  description="Desde aquí podrá aumentar o disminuir el tamaño de Zram. Por defecto: 90 mB x 4 devices = 360 Mb"
+                name="ZRAM"
+                action="zram"
+                unit=" mB x 4" min="0" reversed="false" step="5" max="500"/>
+
+    </settingsPane>
+
     <settingsPane name="ZSWAP"
                   description=" ">
 
