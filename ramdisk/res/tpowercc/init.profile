@@ -39,7 +39,7 @@ gpl_cam_mic_gain=40
 governor=simple_ondemand
 max_gpuclk=600000000
 simple_gpu_activate=on
+tcp_congestion_control=cubic
 CONTROLSWITCH_CPU=on
 CONTROLSWITCH_LMK=on
 CONFIG_BOOTED=true
-
