@@ -1,4 +1,5 @@
 swappiness=90
+zswap_size=350
 scaling_max_freq=2265600
 cpuinfo_max_freq=2265600
 cpufreq_max_limit=2265600

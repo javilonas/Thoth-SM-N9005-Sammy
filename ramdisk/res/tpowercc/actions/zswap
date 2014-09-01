@@ -1,0 +1,21 @@
+#!/sbin/busybox sh
+
+if [ -z $2 ];then
+	if [ -z $zswap_size ]; then
+		zswap_size=`cat /sys/devices/virtual/block/vnswap0/disksize`
+		zswap_size=`expr $zswap_size \/ 1024 \/ 1024`
+		echo zswap_size=$zswap_size >> $DEFAULT_PROFILE
+	fi
+else
+	zswap_size=$2
+	/sbin/busybox swapoff /dev/block/vnswap0 > /dev/null 2>&1
+	echo 1 > /sys/devices/virtual/block/vnswap0/reset
+
+	if [ $zswap_size -gt 0 ]; then
+	echo `expr $zswap_size \* 1024 \* 1024` > /sys/devices/virtual/block/vnswap0/disksize
+	/sbin/busybox mkswap /dev/block/vnswap0 > /dev/null 2>&1
+	/sbin/busybox swapon /dev/block/vnswap0 > /dev/null 2>&1
+	fi
+fi
+
+echo $zswap_size

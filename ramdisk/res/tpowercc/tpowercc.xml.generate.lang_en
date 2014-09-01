@@ -237,6 +237,17 @@ echo '
 	</spinner>
 
 	</settingsPane>
+
+    <settingsPane name="ZSWAP" 
+                  description=" ">
+
+      <seekBar  description="From here you can increase or decrease the size of Zswap. Default: 64 Mb"
+                name="ZSWAP"
+                action="zswap"
+                unit=" mB" min="0" reversed="false" step="5" max="1025"/>
+
+    </settingsPane>
+
     <settingsPane name="Swappiness" 
                   description="A low value means that the kernel will try to avoid sharing the minimum  possible, a higher valué will attempt to use the swap space of a more aggressive mode. A value of 0 will disable sharing memory (swap o zram), Maximum (Normal) is 100, possibility to 200.">
 
