@@ -399,7 +399,6 @@ config FRONTSWAP
 
 config ZSMALLOC_NEW
 	tristate "Memory allocator for compressed pages"
-	depends on !ZSMALLOC
 	default n
 	help
 	  zsmalloc is a slab-based memory allocator designed to store
