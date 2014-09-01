@@ -1,0 +1,400 @@
+#!/sbin/busybox sh
+
+XML=$CONFIG_XML
+
+echo "" > $XML
+
+echo '
+<settingsRoot>' >> $XML
+
+echo '
+  <settingsTab name="CPU">
+      <settingsPane description="From here you can change the different values ​​it contains the CPU , adjust to your liking or according to your daily use." 
+                  name="Choose governor Active">' >> $XML
+echo "
+      <spinner description=\"Default: Interactive\" 
+               name=\"Governor Active\" 
+               action=\"generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\">" >> $XML
+
+for GOVERNOR in `cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors`; do
+  echo "
+        <spinnerItem name=\"$GOVERNOR\" value=\"$GOVERNOR\"/>" >> $XML
+done
+
+echo '
+      </spinner>
+    </settingsPane>
+    <settingsPane description="Apply the boot configuration only if you is stable, otherwise the phone may enter a loop of restarts or not starting." 
+                  name="CPU control switch">
+      <checkbox description="If enabled, the following settings are applied at boot." 
+                name="Set the CPU configuration at boot" 
+                action="controlswitch CPU"
+                label="Set on boot"/>
+
+    </settingsPane>
+
+    <settingsPane description="CPU scaling" 
+                  name="CPU voltaje control">' >> $XML
+
+echo "
+      <spinner description=\"Sets the maximum CPU frequency. Default: 2265 MHz.\" 
+               name=\"CPU max frequency\" 
+               action=\"cpuclockmax cpuclockmaxpredef\">
+             <spinnerItem name=\"2803MHz\" value=\"0\"/>
+             <spinnerItem name=\"2726MHz\" value=\"1\"/>
+             <spinnerItem name=\"2649MHz\" value=\"2\"/>
+             <spinnerItem name=\"2572MHz\" value=\"3\"/>
+             <spinnerItem name=\"2496MHz\" value=\"4\"/>
+             <spinnerItem name=\"2419MHz\" value=\"5\"/>
+             <spinnerItem name=\"2342MHz\" value=\"6\"/>
+             <spinnerItem name=\"2265MHz\" value=\"7\"/>
+             <spinnerItem name=\"1958MHz\" value=\"8\"/>
+             <spinnerItem name=\"1728MHz\" value=\"9\"/>
+             <spinnerItem name=\"1574MHz\" value=\"10\"/>
+             <spinnerItem name=\"1497MHz\" value=\"11\"/>
+             <spinnerItem name=\"1267MHz\" value=\"12\"/>
+             <spinnerItem name=\"1190MHz\" value=\"13\"/>
+             <spinnerItem name=\"1036MHz\" value=\"14\"/>
+             <spinnerItem name=\"960MHz\" value=\"15\"/>
+             <spinnerItem name=\"883MHz\" value=\"16\"/>
+             <spinnerItem name=\"729MHz\" value=\"17\"/>
+             <spinnerItem name=\"652MHz\" value=\"18\"/>
+             <spinnerItem name=\"422MHz\" value=\"19\"/>
+             <spinnerItem name=\"300MHz\" value=\"20\"/>
+       </spinner>
+      <spinner description=\"Sets the minimum CPU frequency. Default: 300 MHz.\" 
+               name=\"CPU min frequency\" 
+               action=\"cpuclockmin cpuclockminpredef\">
+             <spinnerItem name=\"300MHz\" value=\"20\"/>
+             <spinnerItem name=\"422MHz\" value=\"19\"/>
+             <spinnerItem name=\"652MHz\" value=\"18\"/>
+             <spinnerItem name=\"729MHz\" value=\"17\"/>
+             <spinnerItem name=\"883MHz\" value=\"16\"/>
+             <spinnerItem name=\"960MHz\" value=\"15\"/>
+             <spinnerItem name=\"1036MHz\" value=\"14\"/>
+             <spinnerItem name=\"1190MHz\" value=\"13\"/>
+             <spinnerItem name=\"1267MHz\" value=\"12\"/>
+             <spinnerItem name=\"1497MHz\" value=\"11\"/>
+             <spinnerItem name=\"1574MHz\" value=\"10\"/>
+             <spinnerItem name=\"1728MHz\" value=\"9\"/>
+             <spinnerItem name=\"1958MHz\" value=\"8\"/>
+             <spinnerItem name=\"2265MHz\" value=\"7\"/>
+             <spinnerItem name=\"2342MHz\" value=\"6\"/>
+             <spinnerItem name=\"2419MHz\" value=\"5\"/>
+             <spinnerItem name=\"2496MHz\" value=\"4\"/>
+             <spinnerItem name=\"2572MHz\" value=\"3\"/>
+             <spinnerItem name=\"2649MHz\" value=\"2\"/>
+             <spinnerItem name=\"2726MHz\" value=\"1\"/>
+             <spinnerItem name=\"2803MHz\" value=\"0\"/>
+       </spinner>" >> $XML
+
+echo '
+    </settingsPane>
+
+    <settingsPane description="Decreasing voltage will lower power consumption of the CPU. Increasing it on overclocked frequencies improves stability. Too low voltage may cause instabilities and freezes. (Hung)."
+                  name="CPU voltage control">' >> $XML
+`
+cat /sys/devices/system/cpu/cpu0/cpufreq/TP_mV_table | \
+sed -e 's/mhz//g;s/://g' | awk '{ print $1, $2 }' | \
+while read FREQ UVOLT; do
+  echo "
+      <seekBar  description=\"Voltage default: $UVOLTmV\"
+	        name=\"${FREQ} MHz step\"
+                action=\"cpuvolt ${FREQ}\"
+                unit=\"mV\" min=\"600\" reversed=\"false\" step=\"25\" max=\"1450\"/>" >> $XML
+  CPUFREQLIST="$CPUFREQLIST $FREQ"
+done
+`
+
+echo '
+    </settingsPane>
+  </settingsTab>
+  <settingsTab name="Memory">
+    <settingsPane description="Interface from which you can control and manage your phone memory consumed by one of the different profiles, Normal, Moderate and Moderate Super for optimal performance is advised."  
+                  name="information">
+    </settingsPane>
+    <settingsPane description="Apply the boot configuration only if you is stable, otherwise the phone may enter a loop of restarts or not starting." 
+                  name="LMK control switch">
+      <checkbox description="If enabled, the following settings are applied at boot."
+                name="LMK set on start" 
+                action="controlswitch LMK" 
+                label="Set on boot"/>
+    </settingsPane>' >> $XML
+
+echo "
+    <settingsPane description=\"Select the profile you want to use for the memory\" name=\"LMK LowMemoryKiller\">
+      <spinner description=\"Default: Super Moderate\" name=\"Perfil LowMemoryKiller\" action=\"minfree minfreepredef\">
+             <spinnerItem name=\"LMK: Normal\" value=\"0\"/>
+             <spinnerItem name=\"LMK: Moderate\" value=\"1\"/>
+             <spinnerItem name=\"LMK: Super Moderate\" value=\"2\"/>
+             <spinnerItem name=\"LMK: Light\" value=\"3\"/>
+             <spinnerItem name=\"LMK: Super Light\" value=\"4\"/>
+             <spinnerItem name=\"LMK: Medium\" value=\"5\"/>
+             <spinnerItem name=\"LMK: Aggressive\" value=\"6\"/>
+             <spinnerItem name=\"LMK: Super Aggressive\" value=\"7\"/>
+      </spinner>
+    </settingsPane>
+" >> $XML
+echo '
+  </settingsTab>
+  <settingsTab name="Charger">
+    <settingsPane description="Interface for choose between various load profiles AC/USB, depending for this select, the battery will charge slower or faster."  
+                  name="Information">
+    </settingsPane>' >> $XML
+
+echo "
+    <settingsPane description=\"Select the profile you want, default is to 1800mA, battery charger faster, it is not advisable  plus of 1800mA\" name=\"Charger AC\">
+
+      <spinner description=\"Default: AC:1800mA\" name=\"Profile Charger AC\" action=\"chargeaccurrent chargeaccurrentpredef\">
+             <spinnerItem name=\"AC:1000mA\" value=\"0\"/>
+             <spinnerItem name=\"AC:1100mA\" value=\"1\"/>
+             <spinnerItem name=\"AC:1200mA\" value=\"2\"/>
+             <spinnerItem name=\"AC:1300mA\" value=\"3\"/>
+             <spinnerItem name=\"AC:1400mA\" value=\"4\"/>
+             <spinnerItem name=\"AC:1500mA\" value=\"5\"/>
+             <spinnerItem name=\"AC:1600mA\" value=\"6\"/>
+             <spinnerItem name=\"AC:1700mA\" value=\"7\"/>
+             <spinnerItem name=\"AC:1800mA\" value=\"8\"/>
+             <spinnerItem name=\"AC:1900mA\" value=\"9\"/>
+             <spinnerItem name=\"AC:2000mA\" value=\"10\"/>
+             <spinnerItem name=\"AC:2100mA\" value=\"11\"/>
+      </spinner>
+    </settingsPane>
+    <settingsPane description=\"Select the profile you want, default is to 900mA, battery charger faster, it is not advisable  plus of 900mA\" name=\"Carga USB\">
+      <spinner description=\"Por Default: USB:900mA\" name=\"Profile Charger USB\" action=\"chargeusbcurrent chargeusbcurrentpredef\">
+             <spinnerItem name=\"USB:460mA\" value=\"0\"/>
+             <spinnerItem name=\"USB:500mA\" value=\"1\"/>
+             <spinnerItem name=\"USB:600mA\" value=\"2\"/>
+             <spinnerItem name=\"USB:700mA\" value=\"3\"/>
+             <spinnerItem name=\"USB:800mA\" value=\"4\"/>
+             <spinnerItem name=\"USB:900mA\" value=\"5\"/>
+             <spinnerItem name=\"USB:1000mA\" value=\"6\"/>
+      </spinner>
+    </settingsPane>
+    <settingsPane description=\"Fast Charge\" name=\"Profile Charger\">
+      <spinner description=\"Fast Charge ON,OFF\" name=\"Force Fast Charge Switch\" action=\"generic /sys/kernel/fast_charge/force_fast_charge\">
+             <spinnerItem name=\"Fast Charge OFF\" value=\"0\"/>
+             <spinnerItem name=\"Fast Charge ON\" value=\"1\"/>
+             <spinnerItem name=\"Fast Charge Manual\" value=\"2\"/>
+      </spinner>
+    </settingsPane>
+" >> $XML
+echo '
+  </settingsTab>
+
+  <settingsTab name="I/O">
+    <settingsPane description="Select the I/O schedulers that best suits your needs, by default uses ROW."  
+                  name="I/O schedulers">' >> $XML
+
+echo "
+      <spinner name=\"Actual internal storage scheduler\"
+               action=\"iosched internal /sys/block/mmcblk0/queue/scheduler\">" >> $XML
+
+for IOSCHED in `cat /sys/block/mmcblk0/queue/scheduler | sed -e 's/\]//;s/\[//'`; do
+  echo "
+        <spinnerItem name=\"$IOSCHED\" value=\"$IOSCHED\"/>" >> $XML
+done
+
+echo '
+      </spinner>' >> $XML
+
+echo "
+      <spinner name=\"Actual SD card scheduler\"
+               action=\"iosched sd /sys/block/mmcblk1/queue/scheduler\">" >> $XML
+
+for IOSCHED in `cat /sys/block/mmcblk1/queue/scheduler | sed -e 's/\]//;s/\[//'`; do
+  echo "
+        <spinnerItem name=\"$IOSCHED\" value=\"$IOSCHED\"/>" >> $XML
+done
+
+echo '
+      </spinner>
+    </settingsPane>
+
+    <settingsPane name="I/O read-ahead" 
+                  description="Increase the speed of reading and writing.">
+
+      <seekBar  description="The value of reading and writing to the internal phone memory." 
+                name="Internal storage read-ahead" 
+                action="generictagforce internal /sys/block/mmcblk0/queue/read_ahead_kb"
+                unit="kB" min="128" reversed="false" step="128" max="2048"/>
+
+      <seekBar  description="The value of reading and writing to the external memory (SD card)." 
+                name="SD card read-ahead" 
+                action="generictagforce sd /sys/block/mmcblk1/queue/read_ahead_kb"
+                unit="kB" min="128" reversed="false" step="128" max="2048"/>
+
+    </settingsPane>
+
+	<settingsPane description="TCP Control" name="TCP Control">
+
+	<spinner description="options to change the unit of TCP congestion" name="TCP Congestion Control" action="generic /proc/sys/net/ipv4/tcp_congestion_control">
+			<spinnerItem name="westwood" value="westwood"/>
+			<spinnerItem name="cubic" value="cubic"/>
+			<spinnerItem name="reno" value="reno"/>
+			<spinnerItem name="bic" value="bic"/>
+			<spinnerItem name="htcp" value="htcp"/>
+	</spinner>
+
+	</settingsPane>
+    <settingsPane name="Swappiness" 
+                  description="A low value means that the kernel will try to avoid sharing the minimum  possible, a higher valué will attempt to use the swap space of a more aggressive mode. A value of 0 will disable sharing memory (swap o zram), Maximum (Normal) is 100, possibility to 200.">
+
+      <seekBar  description="Default: 90."
+                name="Virtual machine swappiness"
+                action="generic /proc/sys/vm/swappiness"
+                unit="%" min="0" reversed="false" step="5" max="200"/>
+
+    </settingsPane>
+
+    <settingsPane name="Min Free kbytes"
+                  description="Modifying the value (in bytes) of /proc/sys/vm/min_free_kbytes, what we do is redefine the memory space available to the kernel when the need for the system, open an app, etc.. This is used to force the Linux VM to keep a minimum number
+of kilobytes free.. Recommended values: 1448k, 2048k, 2896k, 3642k, 4096k, 5792k, 8192k, 11584k, 12288k, 12360k, 16284k y 18360k. This will influence system performance">
+
+      <seekBar  description="The minimum power Selection is 1448k and max 18360k. Default: 8192 kbytes."
+                name="Min Free kbytes"
+                action="generic /proc/sys/vm/min_free_kbytes"
+                unit="kB" min="1448" reversed="false" step="1" max="18360"/>
+
+    </settingsPane>
+
+    <settingsPane name="Dirty Writeback Centisecs"
+                  description="This tells the kernel every few seconds should write the data to disk. The default is 1500, equivalent to 1,5 seconds. This parameter can influence a lot in performance and battery drain, choose with care.">
+     
+      <seekBar  description="Default: 1500."
+                name="Dirty Writeback Centisecs"
+                action="generic /proc/sys/vm/dirty_writeback_centisecs"
+                unit="%" min="0" reversed="false" step="1" max="6000"/>
+
+    </settingsPane>
+
+    <settingsPane name="Dirty Expire Centisecs"
+                  description="dirty_expire_centisecs define when the data in memory that are marked as dirty are old enough to be candidates for writing. The default is 300. This parameter can influence a lot in performance and battery drain, choose with care.">
+     
+      <seekBar  description="Default: 300."
+                name="Dirty Expire Centisecs"
+                action="generic /proc/sys/vm/dirty_expire_centisecs"
+                unit="%" min="0" reversed="false" step="1" max="6000"/>
+
+    </settingsPane>
+
+    <settingsPane name="Dynamic FSync"
+                  description="fsync() It serves as a flush / commit on write buffer when doing I/O, writes to storage. A buffer with data stored and writes regularly on the storage device. Disabling this will no longer do this and write the data directly.">
+
+      <checkbox description="Dynamic FSync disables file write synchronosity during screen-on, and re-enables it on screen-off."
+                name="Enable dynamic FSync"
+                action="generic01 /sys/kernel/dyn_fsync/Dyn_fsync_active"
+                label="Enable dynamic FSync"/>
+
+    </settingsPane>
+  </settingsTab>
+
+   <settingsTab name="Screen">
+     <settingsPane description="Touch-to-Wake Options" name="Touch-to-Wake Options">
+       <spinner description="Touch-to-Wake" name="Touch-to-Wake" action="touch2wake touchwake">
+             <spinnerItem name="Deactivated" value="0"/>
+             <spinnerItem name="Activated" value="1"/>
+        </spinner>
+       <spinner description="Activated / Deactivated use the wakelock to keep the device awake while TouchWake is active" name="Touch-to-Wake Wakelock" action="touch2wake wakelock">
+             <spinnerItem name="Deactivated" value="0"/>
+             <spinnerItem name="Activated" value="1"/>
+        </spinner>
+      <seekBar description="Touch-To-Wake Delay in seconds (Default is 5ms). Setting Delay to 0 makes Touch-to-Wake permanently active !"
+		name="Touch-to-Wake Delay" action="touch2wake touchwakedelay" unit=" sec" min="0" reversed="false" step="1" max="60"/>
+
+   </settingsPane>
+
+     <settingsPane name="Mdnie Hijack"
+                    description="whether this profile is active, you must deactivate the profile Sharpen (stock). The two at the same time you can not have assets.">
+  
+        <checkbox description="Default: Deactivated"
+                  name="Hijack"
+                  action="generic01 /sys/class/mdnie/mdnie/hijack"
+                  label="Activate Hijack"/>
+  
+     </settingsPane>
+     <settingsPane name="Mdnie Sharpen (stock)"
+                    description="whether this profile is active, you must deactivate the profile Hijack. The two at the same time you can not have assets.">
+  
+        <checkbox description="Default: Activated"
+                  name="Sharpen"
+                  action="generic01 /sys/class/mdnie/mdnie/sharpen"
+                  label="Activate Sharpen"/>
+  
+     </settingsPane>
+    <settingsPane description="Select the profile that best suits your view" name="MDNIE HIJACK">
+      <spinner description="Default: Natural" name="MDNIE" action="mdnie mdniepredef">
+             <spinnerItem name="Natural" value="0"/>
+             <spinnerItem name="Standard" value="1"/>
+      </spinner>
+    </settingsPane>
+
+  </settingsTab>
+
+  <settingsTab name="Sound">
+
+    <settingsPane name="Sound Control"
+	      description="From Sound Control can significantly increase and improve the sound of your phone. ">		  
+      
+      <seekBar  description="Headphone gain. Default: 45" 
+                name="Headphone gain." 
+                action="generic /sys/kernel/sound_control_3/gpl_headphone_gain"
+                unit="" min="20" reversed="false" step="1" max="60"/>
+
+      <seekBar  description="Headphone PowerAmp gain. Default: 20" 
+                name="Headphone PA gain." 
+                action="generic /sys/kernel/sound_control_3/gpl_headphone_pa_gain"
+                unit="" min="10" reversed="false" step="1" max="30"/>
+
+      <seekBar  description="Speaker gain. Default: 45" 
+                name="Speaker gain." 
+                action="generic /sys/kernel/sound_control_3/gpl_speaker_gain"
+                unit="" min="20" reversed="false" step="1" max="60"/>
+
+      <seekBar  description="General Mic gain. Default: 40" 
+                name="General Mic gain" 
+                action="generic /sys/kernel/sound_control_3/gpl_mic_gain"
+                unit="" min="20" reversed="false" step="1" max="60"/>
+
+      <seekBar  description="Camera Mic gain. Default: 40" 
+                name="Camera Mic gain" 
+                action="generic /sys/kernel/sound_control_3/gpl_cam_mic_gain"
+                unit="" min="20" reversed="false" step="1" max="60"/>
+
+    </settingsPane>
+  </settingsTab>
+
+  <settingsTab name="GPU">
+
+    <settingsPane name="GPU Clock Control"
+	      description="GPU Clock control">		  
+      
+       <spinner description="Default GPU governor" name="Default GPU Governor" action="generic /sys/class/devfreq/fdb00000.qcom,kgsl-3d0/governor">
+             <spinnerItem name="MSM-adreno-tz" value="msm-adreno-tz"/>
+             <spinnerItem name="Simple_Ondemand" value="simple_ondemand"/>
+             <spinnerItem name="Performance" value="performance"/>
+             <spinnerItem name="Powersave" value="powersave"/>
+             <spinnerItem name="Userspace" value="userspace"/>
+       </spinner>
+       
+      <spinner description="Sets the maximum frequency of the GPU, scale up to 600 MHz. Kernel stock for default is 450 MHz. Thoth Work  for default 600 MHz. Select the one that you see fit." 
+               name="GPU max frequency" 
+               action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_gpuclk">"
+             <spinnerItem name="600 MHz" value="600000000"/>
+             <spinnerItem name="550 MHz" value="550000000"/>
+             <spinnerItem name="487 MHz" value="487500000"/>
+             <spinnerItem name="450 MHz" value="450000000"/>
+             <spinnerItem name="389 Mhz" value="389000000"/>
+             <spinnerItem name="320 Mhz" value="320000000"/>
+             <spinnerItem name="200 MHz" value="200000000"/>
+       </spinner>
+
+      <checkbox description="Simple GPU algorithm."
+                name="Activate"
+                action="generic01 /sys/module/simple_gpu_algorithm/parameters/simple_gpu_activate"
+                label="Activate simple gpu"/>
+    </settingsPane>
+  </settingsTab>
+</settingsRoot>' >> $XML
+
+chmod 777 $XML
