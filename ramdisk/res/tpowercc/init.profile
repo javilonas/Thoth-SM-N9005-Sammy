@@ -18,6 +18,7 @@ sd_read_ahead_kb=1024
 min_free_kbytes=8192
 dirty_writeback_centisecs=1500
 dirty_expire_centisecs=300
+vfs_cache_pressure=100
 touchwake=0
 touchwakedelay=5
 wakelock=1

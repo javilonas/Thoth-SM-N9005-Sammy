@@ -258,6 +258,16 @@ echo '
 
     </settingsPane>
 
+    <settingsPane name="vfs cache pressure" 
+                  description="Esta variable controla la tendencia del kernel para recuperar la memoria que se utiliza para el almacenamiento en caché de los cachés de VFS, frente memoria intermedia de páginas y de intercambio. El aumento de este valor aumentará la velocidad a la que se reclaman cachés VFS.">   
+
+      <seekBar  description="Por defecto: 100." 
+                name="vfs cache pressure" 
+                action="generic /proc/sys/vm/vfs_cache_pressure"
+                unit="%" min="0" reversed="false" step="5" max="500"/>
+
+    </settingsPane>
+
     <settingsPane name="Min Free kbytes"
                   description="Modificando el valor (en bytes) de /proc/sys/vm/min_free_kbytes, lo que hacemos es redefinir el espacio de memoria libre de que dispone el kernel para cuando la necesita para el sistema, abrir una app, etc.. Lo que hace este ajuste es reservar un mínimo de memoria para el propio sistema. Valores recomendados: 1448k, 2048k, 2896k, 3642k, 4096k, 5792k, 8192k, 11584k, 12288k, 12360k, 16284k y 18360k. Dependerá de este valor el rendimiento de tu sistema">
 
