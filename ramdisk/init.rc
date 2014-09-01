@@ -1076,11 +1076,6 @@ service bootanim /system/sbin/bootanimation
     disabled
     oneshot
 
-service samsungani /system/sbin/samsungani
-    class main
-    disabled
-    oneshot
-
 service installd /system/bin/installd
     class main
     socket installd stream 600 system system
