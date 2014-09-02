@@ -321,19 +321,17 @@ of kilobytes free.. Recommended values: 1448k, 2048k, 2896k, 3642k, 4096k, 5792k
   </settingsTab>
 
    <settingsTab name="Screen">
-     <settingsPane description="Touch-to-Wake Options" name="Touch-to-Wake Options">
-       <spinner description="Touch-to-Wake" name="Touch-to-Wake" action="touch2wake touchwake">
-             <spinnerItem name="Deactivated" value="0"/>
-             <spinnerItem name="Activated" value="1"/>
-        </spinner>
-       <spinner description="Activated / Deactivated use the wakelock to keep the device awake while TouchWake is active" name="Touch-to-Wake Wakelock" action="touch2wake wakelock">
-             <spinnerItem name="Deactivated" value="0"/>
-             <spinnerItem name="Activated" value="1"/>
-        </spinner>
-      <seekBar description="Touch-To-Wake Delay in seconds (Default is 5ms). Setting Delay to 0 makes Touch-to-Wake permanently active !"
-		name="Touch-to-Wake Delay" action="touch2wake touchwakedelay" unit=" sec" min="0" reversed="false" step="1" max="60"/>
+	<settingsPane description="Sweep2Sleep function control." name="Sweep2Sleep">
 
-   </settingsPane>
+		<checkbox description="Enable Sweep2Sleep function that allow to turn screen off sweeping from right to left or backwards on bottom of the screen!" name="Sweep2Sleep Control" action="generic01 /sys/android_touch/sweep2wake" label="Sweep2Sleep"/>
+
+	</settingsPane>
+	
+	<settingsPane description="Enable Disable TouchWake Hack" name="TouchWake">
+
+       <checkbox description="Enable TouchWake" name="Enable TouchWake" action="generic01 /sys/class/misc/touchwake/enabled" label="TouchWake"/>
+  
+    </settingsPane>
 
      <settingsPane name="Mdnie Hijack"
                     description="whether this profile is active, you must deactivate the profile Sharpen (stock). The two at the same time you can not have assets.">

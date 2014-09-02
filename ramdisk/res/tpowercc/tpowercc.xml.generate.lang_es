@@ -320,19 +320,17 @@ echo '
   </settingsTab>
 
    <settingsTab name="Pantalla">
-     <settingsPane description="Touch-to-Wake Opciones" name="Touch-to-Wake Opciones">
-       <spinner description="Touch-to-Wake" name="Touch-to-Wake" action="touch2wake touchwake">
-             <spinnerItem name="Desactivado" value="0"/>
-             <spinnerItem name="Activado" value="1"/>
-        </spinner>
-       <spinner description="Activar / Desactivar el uso wakelock para mantener el dispositivo despierto mientras TouchWake está activo" name="Touch-to-Wake Wakelock" action="touch2wake wakelock">
-             <spinnerItem name="Desactivado" value="0"/>
-             <spinnerItem name="Activado" value="1"/>
-        </spinner>
-      <seekBar description="Touch-to-Wake Delay en segundos (Por defecto son 5s). Ajustar el delay (retardo) a 0 hace que Touch-to Wake esté permanentemente activo !!"
-		name="Touch-to-Wake Delay" action="touch2wake touchwakedelay" unit=" sec" min="0" reversed="false" step="1" max="60"/>
+	<settingsPane description="Sweep2Sleep control." name="Sweep2Sleep">
 
-   </settingsPane>
+		<checkbox description="Activar la función Sweep2Sleep que permite despertar la pantalla desplazando el dedo de derecha a izquierda o hacia atrás en la parte inferior de la pantalla!" name="Sweep2Sleep Control" action="generic01 /sys/android_touch/sweep2wake" label="Sweep2Sleep"/>
+
+	</settingsPane>
+	
+	<settingsPane description="Activar / Desactivar TouchWake Hack" name="TouchWake">
+
+       <checkbox description="Activar TouchWake" name="Activar TouchWake" action="generic01 /sys/class/misc/touchwake/enabled" label="TouchWake"/>
+  
+    </settingsPane>
 
      <settingsPane name="Mdnie Hijack"
                     description="si este perfil está activo, tiene que desactivar el perfil Sharpen (stock). Los 2 a la vez no se pueden tener activos.">
