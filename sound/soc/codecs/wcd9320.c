@@ -4141,9 +4141,6 @@ int taiko_write(struct snd_soc_codec *codec, unsigned int reg,
 	unsigned int value)
 {
 	int ret;
-#ifdef CONFIG_SOUND_CONTROL
-	int val;
-#endif
 	struct wcd9xxx *wcd9xxx = codec->control_data;
 
 	if (reg == SND_SOC_NOPM)
@@ -4159,18 +4156,14 @@ int taiko_write(struct snd_soc_codec *codec, unsigned int reg,
 	}
 
 #ifdef CONFIG_SOUND_CONTROL
-	if (!snd_hax_reg_access(reg)) {
-		if (!((val = snd_hax_cache_read(reg)) != -1)) {
-			val = wcd9xxx_reg_read_safe(&wcd9xxx->core_res, reg);
-		}
-	} else {
+	/* In case of no reg access, override with cache value */
+	if (!snd_hax_reg_access(reg) &&
+	    snd_hax_cache_read(reg) != -1)
+		value = snd_hax_cache_read(reg);
+	else
 		snd_hax_cache_write(reg, value);
-		val = value;
-	}
-	return wcd9xxx_reg_write(&wcd9xxx->core_res, reg, val);
-#else
-	return wcd9xxx_reg_write(&wcd9xxx->core_res, reg, value);
 #endif
+	return wcd9xxx_reg_write(&wcd9xxx->core_res, reg, value);
 }
 #ifdef CONFIG_SOUND_CONTROL
 EXPORT_SYMBOL(taiko_write);
@@ -7060,7 +7053,7 @@ static int taiko_codec_probe(struct snd_soc_codec *codec)
 	codec->control_data = dev_get_drvdata(codec->dev->parent);
 	control = codec->control_data;
 
-#ifdef CONFIG_SOUND_CONTROL_HAX_3_
+#ifdef CONFIG_SOUND_CONTROL
 	if (TAIKO_IS_1_0(control->version))
 		wcd9xxx_hw_revision = 1;
 	else
