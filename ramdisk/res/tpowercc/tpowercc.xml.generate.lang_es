@@ -361,12 +361,12 @@ echo '
 
   </settingsTab>
 
-<settingsTab name="Sound Control">
+<settingsTab name="Sonido">
 
-	<settingsPane description="It is not recommended to apply changes while playing music. Also please note, more the gain, more is the power consumption." name="CAF Sound">
+	<settingsPane description="No se recomienda aplicar cambios mientras se reproduce música. También tenga en cuenta, a más ganancia, mayor consumo de batería." name="Sound Control">
 
-		<spinner description="This is main control for CAF Sound customization. You can set a preset profile or custom profile or completely disable sound control via TPowerCC. Sliders below are effective only if this control is set to 'Custom'" name="CAF Sound Control" action="sound_control sound_profile">
-			<spinnerItem name="Disabled" value="disabled"/>
+		<spinner description="Este es el control principal para la personalización del Sound control. Se puede establecer un perfil predefinido o un perfil personalizado o control de sonido deshabilitar completamente a través TPowerCC. Los Sliders de abajo son efectivos sólo si este control se establece en 'Custom'." name="Sound Control" action="sound_control sound_profile">
+			<spinnerItem name="Desactivado" value="disabled"/>
 			<spinnerItem name="Custom" value="custom"/>
 			<spinnerItem name="Stock" value="stock"/>
 			<spinnerItem name="Quality" value="quality"/>
@@ -374,15 +374,15 @@ echo '
 			<spinnerItem name="Quiet" value="quiet"/>
 		</spinner>
 
-		<seekBar description="Digital Output Gain. Default 256." name="Custom Headphone Gain" action="sound_control gpl_headphone_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
+		<seekBar description="Digital Output Gain. Por defecto: 256." name="Custom Headphone Gain" action="sound_control gpl_headphone_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
 
-		<seekBar description="Digital Output Gain. Default 256." name="Custom Speaker Gain" action="sound_control gpl_speaker_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
+		<seekBar description="Digital Output Gain. Por defecto: 256." name="Custom Speaker Gain" action="sound_control gpl_speaker_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
 
-		<seekBar description="Analog Output Attenuation. Default 36. Note: Attenuation is decrease in sound level." name="Custom Headphone PowerAmp Attenuation" action="sound_control gpl_headphone_pa_gain" unit=" " min="32" reversed="false" step="1" max="44"/>
+		<seekBar description="Analog Output Attenuation. Por defecto: 36. Nota: La atenuación es la disminución en el nivel de sonido." name="Custom Headphone PowerAmp Attenuation" action="sound_control gpl_headphone_pa_gain" unit=" " min="32" reversed="false" step="1" max="44"/>
 
-		<seekBar description="Digital Input Gain. Default 256." name="Custom Handset Microphone Gain" action="sound_control gpl_mic_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
+		<seekBar description="Digital Input Gain. Por defecto: 256." name="Custom Handset Microphone Gain" action="sound_control gpl_mic_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
 
-		<seekBar description="Digital Input Gain. Default 256." name="Custom Camcorder Microphone Gain" action="sound_control gpl_cam_mic_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
+		<seekBar description="Digital Input Gain. Por defecto: 256." name="Custom Camcorder Microphone Gain" action="sound_control gpl_cam_mic_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
 
 	</settingsPane>
 
