@@ -259,12 +259,12 @@ echo '
     </settingsPane>
 
     <settingsPane name="Swappiness" 
-                  description="Un valor bajo significa que el kernel va a tratar de evitar el intercambio tanto como sea posible, por contra en un valor más alto intentará de usar el espacio de intercambio de un modo mas agresivo, en resumen: al bajar su valor, le indicamos que use mas caché y menos swap y al subirlo le estamos indicamos al sistema, que use menos Swap y mas caché y memoria RAM. un Valor 0 desactivaría el intercambio de memoria (swap o zram), el tope por norma general es 100, aunque he dejado opción hasta 200.">
+                  description="Un valor bajo significa que el kernel va a tratar de evitar el intercambio tanto como sea posible, por contra en un valor más alto intentará de usar el espacio de intercambio de un modo mas agresivo, en resumen: al bajar su valor, le indicamos que use mas caché y menos swap y al subirlo le estamos indicamos al sistema, que use menos Swap y mas caché y memoria RAM. un Valor 0 desactivaría el intercambio de memoria (swap o zram), el tope por norma general es 100.">
 
       <seekBar  description="Por defecto: 90."
                 name="Virtual machine swappiness"
                 action="generic /proc/sys/vm/swappiness"
-                unit="%" min="0" reversed="false" step="5" max="200"/>
+                unit="%" min="0" reversed="false" step="5" max="100"/>
 
     </settingsPane>
 
@@ -361,38 +361,32 @@ echo '
 
   </settingsTab>
 
-  <settingsTab name="Sonido">
+<settingsTab name="Sound Control">
 
-    <settingsPane name="Sound Control"
-	      description="Desde Sound Control podrá aumentar y mejorar considerablemente el sonido de su teléfono. ">		  
-      
-      <seekBar  description="Aumentar el Volumen de los Auriculares. Por defecto: 45" 
-                name="Volumen Auriculares." 
-                action="generic /sys/kernel/sound_control_3/gpl_headphone_gain"
-                unit="" min="20" reversed="false" step="1" max="60"/>
+	<settingsPane description="It is not recommended to apply changes while playing music. Also please note, more the gain, more is the power consumption." name="CAF Sound">
 
-      <seekBar  description="Amplificar el Volumen de los Auriculares. Por defecto: 20" 
-                name="Amplificar Auriculares." 
-                action="generic /sys/kernel/sound_control_3/gpl_headphone_pa_gain"
-                unit="" min="10" reversed="false" step="1" max="30"/>
+		<spinner description="This is main control for CAF Sound customization. You can set a preset profile or custom profile or completely disable sound control via TPowerCC. Sliders below are effective only if this control is set to 'Custom'" name="CAF Sound Control" action="sound_control sound_profile">
+			<spinnerItem name="Disabled" value="disabled"/>
+			<spinnerItem name="Custom" value="custom"/>
+			<spinnerItem name="Stock" value="stock"/>
+			<spinnerItem name="Quality" value="quality"/>
+			<spinnerItem name="Loudness" value="loudness"/>
+			<spinnerItem name="Quiet" value="quiet"/>
+		</spinner>
 
-      <seekBar  description="Aumentar el Volumen del Altavoz. Por defecto: 45" 
-                name="Volumen Altavoz." 
-                action="generic /sys/kernel/sound_control_3/gpl_speaker_gain"
-                unit="" min="20" reversed="false" step="1" max="60"/>
+		<seekBar description="Digital Output Gain. Default 256." name="Custom Headphone Gain" action="sound_control gpl_headphone_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
 
-      <seekBar  description="Aumentar la Ganancia del Micrófono. Por defecto: 40" 
-                name="Aumentar Micrófono" 
-                action="generic /sys/kernel/sound_control_3/gpl_mic_gain"
-                unit="" min="20" reversed="false" step="1" max="60"/>
+		<seekBar description="Digital Output Gain. Default 256." name="Custom Speaker Gain" action="sound_control gpl_speaker_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
 
-      <seekBar  description="Aumentar la Ganancia del Micrófono de la Cámara. Por defecto: 40" 
-                name="Aumentar Micrófono Cámara" 
-                action="generic /sys/kernel/sound_control_3/gpl_cam_mic_gain"
-                unit="" min="20" reversed="false" step="1" max="60"/>
+		<seekBar description="Analog Output Attenuation. Default 36. Note: Attenuation is decrease in sound level." name="Custom Headphone PowerAmp Attenuation" action="sound_control gpl_headphone_pa_gain" unit=" " min="32" reversed="false" step="1" max="44"/>
 
-    </settingsPane>
-  </settingsTab>
+		<seekBar description="Digital Input Gain. Default 256." name="Custom Handset Microphone Gain" action="sound_control gpl_mic_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
+
+		<seekBar description="Digital Input Gain. Default 256." name="Custom Camcorder Microphone Gain" action="sound_control gpl_cam_mic_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
+
+	</settingsPane>
+
+</settingsTab>
 
   <settingsTab name="GPU">
 

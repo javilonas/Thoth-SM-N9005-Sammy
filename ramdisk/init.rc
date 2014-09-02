@@ -470,11 +470,11 @@ on boot
     chmod 664 /sys/devices/system/cpu/kernel_max
 
     chown radio system /sys/class/kgsl/kgsl-3d0/max_pwrlevel
-    chmod 664  /sys/class/kgsl/kgsl-3d0/max_pwrlevel
+    chmod 664 /sys/class/kgsl/kgsl-3d0/max_pwrlevel
     chown radio system /sys/class/kgsl/kgsl-3d0/min_pwrlevel
-    chmod 664  /sys/class/kgsl/kgsl-3d0/min_pwrlevel
+    chmod 664 /sys/class/kgsl/kgsl-3d0/min_pwrlevel
     chown radio system /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies
-    chmod 664  /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies
+    chmod 664 /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies
 
     chown system system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/timer_rate
@@ -520,24 +520,24 @@ on boot
     chmod 0664 /sys/block/mmcblk0/queue/scheduler
 
     # Auto Brightness
-    chown system system  /sys/class/backlight/panel/auto_brightness
+    chown system system /sys/class/backlight/panel/auto_brightness
     chmod 0664 /sys/class/backlight/panel/auto_brightness
 
     # LCD mdnie and panel work
-    chown system system  /sys/class/mdnie/mdnie/lcdtype
-    chown system system  /sys/class/mdnie/mdnie/lcd_power
+    chown system system /sys/class/mdnie/mdnie/lcdtype
+    chown system system /sys/class/mdnie/mdnie/lcd_power
     chown system media_rw /sys/class/mdnie/mdnie/scenario
     chmod 0664 /sys/class/mdnie/mdnie/scenario   
     
     chown system system /sys/class/mdnie/mdnie/tuning
     chown system media_rw /sys/class/mdnie/mdnie/outdoor
-    chown system system  /sys/class/mdnie/mdnie/mdnie_temp
+    chown system system /sys/class/mdnie/mdnie/mdnie_temp
     chown system system /sys/class/mdnie/mdnie/mode
     chown system system /sys/class/mdnie/mdnie/negative
     chown system media_rw /sys/class/mdnie/mdnie/playspeed
     chown system media_rw /sys/class/mdnie/mdnie/accessibility
-    chown system system  /sys/class/mdnie/mdnie/cabc
-    chown system system  /sys/class/mdnie/mdnie/bypass
+    chown system system /sys/class/mdnie/mdnie/cabc
+    chown system system /sys/class/mdnie/mdnie/bypass
  
     chown system system /sys/class/lcd/panel/window_type
     chown radio system /sys/class/lcd/panel/power_reduce
@@ -598,6 +598,23 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_rmem_def
     chown system system /sys/kernel/ipv4/tcp_rmem_max
     chown root radio /proc/cmdline
+
+ # sound
+    chown root system /sys/kernel/sound_control_3/gpl_cam_mic_gain	
+    chown root system /sys/kernel/sound_control_3/gpl_headphone_gain
+    chown root system /sys/kernel/sound_control_3/gpl_headphone_pa_gain
+    chown root system /sys/kernel/sound_control_3/gpl_mic_gain
+    chown root system /sys/kernel/sound_control_3/gpl_speaker_gain
+    chown root system /sys/kernel/sound_control_3/gpl_sound_control_version
+    chown root system /sys/kernel/sound_control_3/gpl_sound_control_locked
+	
+    chmod 0666 /sys/kernel/sound_control_3/gpl_cam_mic_gain	
+    chmod 0666 /sys/kernel/sound_control_3/gpl_headphone_gain
+    chmod 0666 /sys/kernel/sound_control_3/gpl_headphone_pa_gain
+    chmod 0666 /sys/kernel/sound_control_3/gpl_mic_gain
+    chmod 0666 /sys/kernel/sound_control_3/gpl_speaker_gain
+    chmod 0666 /sys/kernel/sound_control_3/gpl_sound_control_version
+    chmod 0666 /sys/kernel/sound_control_3/gpl_sound_control_locked
 
 # Adjust YUV to RGB Conversion(CSC_Conversion)
     chown system media_rw /sys/class/graphics/fb0/csc_cfg

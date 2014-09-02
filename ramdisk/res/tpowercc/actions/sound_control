@@ -1,0 +1,281 @@
+#!/sbin/busybox sh
+
+if [ "a$2" != "a" ]; then
+
+	action=$2;
+
+	if [ "a$3" == "a" ]; then
+		evalcmd='eval "echo \$$action"';
+		eval $evalcmd;
+	else
+		sound_control=$3;
+		evalcmd='eval "$action=$3"';
+		eval $evalcmd;
+		evalcmd='eval "echo \$$action"';
+		eval $evalcmd;
+
+		case "${action}" in
+			sound_profile)
+				case "${sound_control}" in
+					disabled)
+						rm -f /data/.tpowercc/.custom_sound 2> /dev/null;
+						chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						echo "0" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					;;
+					custom)
+						touch /data/.tpowercc/.custom_sound;
+						chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						echo "0" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 777 /sys/kernel/sound_control_3/gpl_mic_gain;
+						echo "$gpl_mic_gain" > /sys/kernel/sound_control_3/gpl_mic_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_mic_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						echo "$gpl_cam_mic_gain" > /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						echo "$gpl_headphone_pa_gain $gpl_headphone_pa_gain" > /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_speaker_gain;
+						echo "$gpl_speaker_gain $gpl_speaker_gain" > /sys/kernel/sound_control_3/gpl_speaker_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_speaker_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_headphone_gain;
+						echo "${gpl_headphone_gain} ${gpl_headphone_gain}" > /sys/kernel/sound_control_3/gpl_headphone_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						echo "1" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					;;
+					stock)
+						rm -f /data/.tpowercc/.custom_sound 2> /dev/null;
+						chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						echo "0" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 777 /sys/kernel/sound_control_3/gpl_mic_gain;
+						echo "256" > /sys/kernel/sound_control_3/gpl_mic_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_mic_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						echo "256" > /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						echo "36 36" > /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_speaker_gain;
+						echo "256 256" > /sys/kernel/sound_control_3/gpl_speaker_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_speaker_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_headphone_gain;
+						echo "256 256" > /sys/kernel/sound_control_3/gpl_headphone_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						echo "1" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					;;
+					quality)
+						rm -f /data/.tpowercc/.custom_sound 2> /dev/null;
+						chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						echo "0" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 777 /sys/kernel/sound_control_3/gpl_mic_gain;
+						echo "256" > /sys/kernel/sound_control_3/gpl_mic_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_mic_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						echo "256" > /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						echo "33 33" > /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_speaker_gain;
+						echo "254 254" > /sys/kernel/sound_control_3/gpl_speaker_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_speaker_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_headphone_gain;
+						echo "254 254" > /sys/kernel/sound_control_3/gpl_headphone_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						echo "1" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					;;
+					loudness)
+						rm -f /data/.tpowercc/.custom_sound 2> /dev/null;
+						chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						echo "0" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 777 /sys/kernel/sound_control_3/gpl_mic_gain;
+						echo "256" > /sys/kernel/sound_control_3/gpl_mic_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_mic_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						echo "256" > /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						echo "35 35" > /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_speaker_gain;
+						echo "261 261" > /sys/kernel/sound_control_3/gpl_speaker_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_speaker_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_headphone_gain;
+						echo "265 265" > /sys/kernel/sound_control_3/gpl_headphone_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						echo "1" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					;;
+					quiet)
+						rm -f /data/.tpowercc/.custom_sound 2> /dev/null;
+						chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						echo "0" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 777 /sys/kernel/sound_control_3/gpl_mic_gain;
+						echo "256" > /sys/kernel/sound_control_3/gpl_mic_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_mic_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						echo "256" > /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						echo "40 40" > /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_speaker_gain;
+						echo "253 253" > /sys/kernel/sound_control_3/gpl_speaker_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_speaker_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_headphone_gain;
+						echo "251 251" > /sys/kernel/sound_control_3/gpl_headphone_gain;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_gain;
+						chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						echo "1" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+						chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					;;
+					*)
+						sound_control=disabled;
+					;;
+				esac;
+			;;
+			gpl_headphone_gain)
+				if [ -f /data/.tpowercc/.custom_sound ]; then
+					chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					echo "0" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 777 /sys/kernel/sound_control_3/gpl_headphone_gain;
+					echo "$sound_control $sound_control" > /sys/kernel/sound_control_3/gpl_headphone_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					echo "$gpl_headphone_pa_gain $gpl_headphone_pa_gain" > /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_speaker_gain;
+					echo "$gpl_speaker_gain $gpl_speaker_gain" > /sys/kernel/sound_control_3/gpl_speaker_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_speaker_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					echo "$gpl_cam_mic_gain" > /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_mic_gain;
+					echo "$gpl_mic_gain" > /sys/kernel/sound_control_3/gpl_mic_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_mic_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					echo "1" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+				fi;
+			;;
+			gpl_speaker_gain)
+				if [ -f /data/.tpowercc/.custom_sound ]; then
+					chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					echo "0" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 777 /sys/kernel/sound_control_3/gpl_headphone_gain;
+					echo "${gpl_headphone_gain} ${gpl_headphone_gain}" > /sys/kernel/sound_control_3/gpl_headphone_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					echo "$gpl_headphone_pa_gain $gpl_headphone_pa_gain" > /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_speaker_gain;
+					echo "$sound_control $sound_control" > /sys/kernel/sound_control_3/gpl_speaker_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_speaker_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					echo "$gpl_cam_mic_gain" > /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_mic_gain;
+					echo "$gpl_mic_gain" > /sys/kernel/sound_control_3/gpl_mic_gain;
+					chmod 0644/sys/kernel/sound_control_3/gpl_mic_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					echo "1" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+				fi;
+			;;
+			gpl_headphone_pa_gain)
+				if [ -f /data/.tpowercc/.custom_sound ]; then
+					chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					echo "0" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 777 /sys/kernel/sound_control_3/gpl_headphone_gain;
+					echo "${gpl_headphone_gain} ${gpl_headphone_gain}" > /sys/kernel/sound_control_3/gpl_headphone_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					echo "$sound_control $sound_control" > /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_speaker_gain;
+					echo "$gpl_speaker_gain $gpl_speaker_gain" > /sys/kernel/sound_control_3/gpl_speaker_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_speaker_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					echo "$gpl_cam_mic_gain" > /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_mic_gain;
+					echo "$gpl_mic_gain" > /sys/kernel/sound_control_3/gpl_mic_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_mic_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					echo "1" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+				fi;
+			;;
+			gpl_cam_mic_gain)
+				if [ -f /data/.tpowercc/.custom_sound ]; then
+					chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					echo "0" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 777 /sys/kernel/sound_control_3/gpl_headphone_gain;
+					echo "${gpl_headphone_gain} ${gpl_headphone_gain}" > /sys/kernel/sound_control_3/gpl_headphone_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					echo "$gpl_headphone_pa_gain $gpl_headphone_pa_gain" > /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_speaker_gain;
+					echo "$gpl_speaker_gain $gpl_speaker_gain" > /sys/kernel/sound_control_3/gpl_speaker_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_speaker_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					echo "$sound_control" > /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_mic_gain;
+					echo "$gpl_mic_gain" > /sys/kernel/sound_control_3/gpl_mic_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_mic_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					echo "1" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+				fi;
+			;;
+			gpl_mic_gain)
+				if [ -f /data/.tpowercc/.custom_sound ]; then
+					chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					echo "0" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 777 /sys/kernel/sound_control_3/gpl_headphone_gain;
+					echo "${gpl_headphone_gain} ${gpl_headphone_gain}" > /sys/kernel/sound_control_3/gpl_headphone_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					echo "$gpl_headphone_pa_gain $gpl_headphone_pa_gain" > /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_headphone_pa_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_speaker_gain;
+					echo "$gpl_speaker_gain $gpl_speaker_gain" > /sys/kernel/sound_control_3/gpl_speaker_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_speaker_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					echo "$gpl_cam_mic_gain" > /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_cam_mic_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_mic_gain;
+					echo "$sound_control" > /sys/kernel/sound_control_3/gpl_mic_gain;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_mic_gain;
+					chmod 777 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					echo "1" > /sys/kernel/sound_control_3/gpl_sound_control_locked;
+					chmod 0644 /sys/kernel/sound_control_3/gpl_sound_control_locked;
+				fi;
+			;;
+			*)
+				action=sound_profile;
+			;;
+		esac;
+	fi;
+fi;

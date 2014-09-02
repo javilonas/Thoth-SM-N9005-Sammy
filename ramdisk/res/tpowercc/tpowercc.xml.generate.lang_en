@@ -259,12 +259,12 @@ echo '
     </settingsPane>
 
     <settingsPane name="Swappiness" 
-                  description="A low value means that the kernel will try to avoid sharing the minimum  possible, a higher valué will attempt to use the swap space of a more aggressive mode. A value of 0 will disable sharing memory (swap o zram), Maximum (Normal) is 100, possibility to 200.">
+                  description="A low value means that the kernel will try to avoid sharing the minimum  possible, a higher valué will attempt to use the swap space of a more aggressive mode. A value of 0 will disable sharing memory (swap o zram), Maximum is 100.">
 
       <seekBar  description="Default: 90."
                 name="Virtual machine swappiness"
                 action="generic /proc/sys/vm/swappiness"
-                unit="%" min="0" reversed="false" step="5" max="200"/>
+                unit="%" min="0" reversed="false" step="5" max="100"/>
 
     </settingsPane>
 
@@ -362,38 +362,32 @@ of kilobytes free.. Recommended values: 1448k, 2048k, 2896k, 3642k, 4096k, 5792k
 
   </settingsTab>
 
-  <settingsTab name="Sound">
+ <settingsTab name="Sound Control">
 
-    <settingsPane name="Sound Control"
-	      description="From Sound Control can significantly increase and improve the sound of your phone. ">		  
-      
-      <seekBar  description="Headphone gain. Default: 45" 
-                name="Headphone gain." 
-                action="generic /sys/kernel/sound_control_3/gpl_headphone_gain"
-                unit="" min="20" reversed="false" step="1" max="60"/>
+	<settingsPane description="It is not recommended to apply changes while playing music. Also please note, more the gain, more is the power consumption." name="CAF Sound">
 
-      <seekBar  description="Headphone PowerAmp gain. Default: 20" 
-                name="Headphone PA gain." 
-                action="generic /sys/kernel/sound_control_3/gpl_headphone_pa_gain"
-                unit="" min="10" reversed="false" step="1" max="30"/>
+		<spinner description="This is main control for CAF Sound customization. You can set a preset profile or custom profile or completely disable sound control via TPowerCC. Sliders below are effective only if this control is set to 'Custom'" name="CAF Sound Control" action="sound_control sound_profile">
+			<spinnerItem name="Disabled" value="disabled"/>
+			<spinnerItem name="Custom" value="custom"/>
+			<spinnerItem name="Stock" value="stock"/>
+			<spinnerItem name="Quality" value="quality"/>
+			<spinnerItem name="Loudness" value="loudness"/>
+			<spinnerItem name="Quiet" value="quiet"/>
+		</spinner>
 
-      <seekBar  description="Speaker gain. Default: 45" 
-                name="Speaker gain." 
-                action="generic /sys/kernel/sound_control_3/gpl_speaker_gain"
-                unit="" min="20" reversed="false" step="1" max="60"/>
+		<seekBar description="Digital Output Gain. Default 256." name="Custom Headphone Gain" action="sound_control gpl_headphone_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
 
-      <seekBar  description="General Mic gain. Default: 40" 
-                name="General Mic gain" 
-                action="generic /sys/kernel/sound_control_3/gpl_mic_gain"
-                unit="" min="20" reversed="false" step="1" max="60"/>
+		<seekBar description="Digital Output Gain. Default 256." name="Custom Speaker Gain" action="sound_control gpl_speaker_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
 
-      <seekBar  description="Camera Mic gain. Default: 40" 
-                name="Camera Mic gain" 
-                action="generic /sys/kernel/sound_control_3/gpl_cam_mic_gain"
-                unit="" min="20" reversed="false" step="1" max="60"/>
+		<seekBar description="Analog Output Attenuation. Default 36. Note: Attenuation is decrease in sound level." name="Custom Headphone PowerAmp Attenuation" action="sound_control gpl_headphone_pa_gain" unit=" " min="32" reversed="false" step="1" max="44"/>
 
-    </settingsPane>
-  </settingsTab>
+		<seekBar description="Digital Input Gain. Default 256." name="Custom Handset Microphone Gain" action="sound_control gpl_mic_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
+
+		<seekBar description="Digital Input Gain. Default 256." name="Custom Camcorder Microphone Gain" action="sound_control gpl_cam_mic_gain" unit=" " min="236" reversed="false" step="1" max="266"/>
+
+	</settingsPane>
+
+</settingsTab>
 
   <settingsTab name="GPU">
 

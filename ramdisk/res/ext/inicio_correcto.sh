@@ -20,8 +20,15 @@ $BB rm -rf /data/anr/* 2> /dev/null;
 $BB chown -R root:system /sys/devices/system/cpu/;
 $BB chown -R system:system /data/anr;
 $BB chown -R root:radio /data/property/;
+
+# Make tmp folder to support TPowerCC smooth execution
+$BB mkdir /tmp;
+
+# Give permissions to execute
 $BB chmod -R 777 /tmp/;
-$BB chmod -R 6755 /sbin/ext/;
+$BB chmod -R 6755 /sbin/ext/*;
+$BB chmod -R 777 /res/;
+
 $BB chmod -R 0777 /dev/cpuctl/;
 $BB chmod -R 0777 /data/system/inputmethod/;
 $BB chmod -R 0777 /sys/devices/system/cpu/;
@@ -44,13 +51,26 @@ $BB chmod 666 /sys/module/lowmemorykiller/parameters/adj;
 echo "-1000" > /proc/1/oom_score_adj;
 
 # set sysrq to 2 = enable control of console logging level as with CM-KERNEL
-echo "2" > /proc/sys/kernel/sysrq;
+#echo "2" > /proc/sys/kernel/sysrq;
+
+# Make sure powersuspend use kernel mode instead of userspace
+echo "0" > /sys/kernel/power_suspend/power_suspend_mode
 
 # fix storage folder owner
 $BB chown system.sdcard_rw /storage;
 
 sync;
 
+# Disable RIL power collapse
+setprop ro.ril.disable.power.collapse 1
 
+# Disable Google OTA Update checkin
+setprop ro.config.nocheckin 1
 
+# ROM Tuning
+setprop pm.sleep_mode 1
+setprop af.resampler.quality 4
+setprop audio.offload.buffer.size.kb 32
+setprop audio.offload.gapless.enabled false
+setprop av.offload.enable true
 
