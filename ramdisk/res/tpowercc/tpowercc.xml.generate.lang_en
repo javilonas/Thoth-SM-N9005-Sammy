@@ -290,9 +290,9 @@ of kilobytes free.. Recommended values: 1448k, 2048k, 2896k, 3642k, 4096k, 5792k
     </settingsPane>
 
     <settingsPane name="Dirty Writeback Centisecs"
-                  description="This tells the kernel every few seconds should write the data to disk. The default is 1500, equivalent to 0,5 seconds. This parameter can influence a lot in performance and battery drain, choose with care.">
+                  description="This tells the kernel every few seconds should write the data to disk. The default is 1500, equivalent to 1,5 seconds. This parameter can influence a lot in performance and battery drain, choose with care.">
      
-      <seekBar  description="Default: 500."
+      <seekBar  description="Default: 1500."
                 name="Dirty Writeback Centisecs"
                 action="generic /proc/sys/vm/dirty_writeback_centisecs"
                 unit="%" min="0" reversed="false" step="1" max="6000"/>
@@ -302,7 +302,7 @@ of kilobytes free.. Recommended values: 1448k, 2048k, 2896k, 3642k, 4096k, 5792k
     <settingsPane name="Dirty Expire Centisecs"
                   description="dirty_expire_centisecs define when the data in memory that are marked as dirty are old enough to be candidates for writing. The default is 200. This parameter can influence a lot in performance and battery drain, choose with care.">
      
-      <seekBar  description="Default: 200."
+      <seekBar  description="Default: 300."
                 name="Dirty Expire Centisecs"
                 action="generic /proc/sys/vm/dirty_expire_centisecs"
                 unit="%" min="0" reversed="false" step="1" max="6000"/>
@@ -321,17 +321,6 @@ of kilobytes free.. Recommended values: 1448k, 2048k, 2896k, 3642k, 4096k, 5792k
   </settingsTab>
 
    <settingsTab name="Screen">
-	<settingsPane description="Sweep2Sleep function control." name="Sweep2Sleep">
-
-		<checkbox description="Enable Sweep2Sleep function that allow to turn screen off sweeping from right to left or backwards on bottom of the screen!" name="Sweep2Sleep Control" action="generic01 /sys/android_touch/sweep2wake" label="Sweep2Sleep"/>
-
-	</settingsPane>
-	
-	<settingsPane description="Enable Disable TouchWake Hack" name="TouchWake">
-
-       <checkbox description="Enable TouchWake" name="Enable TouchWake" action="generic01 /sys/class/misc/touchwake/enabled" label="TouchWake"/>
-  
-    </settingsPane>
 
      <settingsPane name="Mdnie Hijack"
                     description="whether this profile is active, you must deactivate the profile Sharpen (stock). The two at the same time you can not have assets.">

@@ -11,7 +11,6 @@ echo "3" > /proc/sys/vm/drop_caches
 echo "0" > /proc/sys/vm/block_dump
 echo "5" > /proc/sys/vm/laptop_mode
 echo "0" > /proc/sys/vm/panic_on_oom 
-echo "0" > /proc/sys/kernel/panic_on_oops
 echo "8" > /proc/sys/vm/page-cluster
 
 echo "0" > /proc/sys/kernel/randomize_va_space
